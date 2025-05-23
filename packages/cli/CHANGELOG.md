@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.92.15
+
+### Patch Changes
+
+- [#803](https://github.com/lingodotdev/lingo.dev/pull/803) [`f5657a9`](https://github.com/lingodotdev/lingo.dev/commit/f5657a9fae0924c7f34165bcfaa609d8740557d7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed results counting logic in the summary step
+
 ## 0.92.14
 
 ### Patch Changes
