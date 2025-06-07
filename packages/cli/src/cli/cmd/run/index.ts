@@ -10,16 +10,40 @@ import {
   renderHero,
   pauseIfDebug,
   renderSummary,
-} from "./_render";
+} from "../../utils/ui";
+import chalk from "chalk";
 
 export default new Command()
   .command("run")
   .description("Run Lingo.dev localization engine")
   .helpOption("-h, --help", "Show help")
   .option(
-    "--locale <locale>",
-    "Locale to process",
-    (val: string, prev: string[]) => (prev ? [...prev, val] : [val]),
+    "--source-locale <source-locale>",
+    "Locale to use as source locale. Defaults to i18n.json locale.source",
+    (val: string, prev: string) => {
+      if (!val) return prev;
+      if (!process.argv.includes("--target-locale")) {
+        console.error(
+          `\n❌ ${chalk.red("Error")}: --source-locale must be used together with --target-locale\n`,
+        );
+        process.exit(1);
+      }
+      return val;
+    },
+  )
+  .option(
+    "--target-locale <target-locale>",
+    "Locale to use as target locale. Defaults to i18n.json locale.targets",
+    (val: string, prev: string[]) => {
+      if (!val) return prev;
+      if (!process.argv.includes("--source-locale")) {
+        console.error(
+          `\n❌ ${chalk.red("Error")}: --target-locale must be used together with --source-locale\n`,
+        );
+        process.exit(1);
+      }
+      return prev ? [...prev, val] : [val];
+    },
   )
   .option(
     "--bucket <bucket>",
@@ -79,7 +103,7 @@ export default new Command()
       await execute(ctx);
       await renderSpacer();
 
-      await renderSummary(ctx);
+      await renderSummary(ctx.results);
       await renderSpacer();
     } catch (error: any) {
       process.exit(1);

@@ -107,10 +107,10 @@ const unplugin = createUnplugin<Partial<typeof defaultParams> | undefined>(
           const result = _.chain({
             code,
             params,
-            fileKey: path.relative(
-              path.resolve(process.cwd(), params.sourceRoot),
-              id,
-            ),
+            fileKey: path
+              .relative(path.resolve(process.cwd(), params.sourceRoot), id)
+              .split(path.sep)
+              .join("/"), // Always normalize for consistent dictionaries
           })
             .thru(createPayload)
             .thru(
@@ -162,7 +162,7 @@ export default {
       ...nextConfig,
       // what if we already have a webpack config?
       webpack: (config, { isServer }) => {
-        config.plugins.push(
+        config.plugins.unshift(
           unplugin.webpack(
             _.merge({}, defaultParams, { rsc: true }, compilerParams),
           ),
@@ -171,7 +171,7 @@ export default {
       },
     }),
   vite: (compilerParams?: Partial<typeof defaultParams>) => (config: any) => {
-    config.plugins.push(
+    config.plugins.unshift(
       unplugin.vite(_.merge({}, defaultParams, { rsc: false }, compilerParams)),
     );
     return config;

@@ -1,5 +1,41 @@
 # @lingo.dev/\_compiler
 
+## 0.1.9
+
+### Patch Changes
+
+- [#866](https://github.com/lingodotdev/lingo.dev/pull/866) [`77461a7`](https://github.com/lingodotdev/lingo.dev/commit/77461a7872eec3ea188b3ca6c6f7ce1fd13fdfbb) Thanks [@vrcprl](https://github.com/vrcprl)! - normalize paths in dictionaries
+
+## 0.1.8
+
+### Patch Changes
+
+- [#861](https://github.com/lingodotdev/lingo.dev/pull/861) [`1bccb7e`](https://github.com/lingodotdev/lingo.dev/commit/1bccb7ed51ac1f13ea79e618bbee551d5529efdc) Thanks [@vrcprl](https://github.com/vrcprl)! - support filePath on Windows
+
+## 0.1.7
+
+### Patch Changes
+
+- [`5b68641`](https://github.com/lingodotdev/lingo.dev/commit/5b686414f363f8ee4b79fd4e804a434db5cfcb36) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat: unshift the plugins
+
+## 0.1.6
+
+### Patch Changes
+
+- [`7a5898b`](https://github.com/lingodotdev/lingo.dev/commit/7a5898b12dcd0015a5e57236bf65172cedb8a6ee) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - merge dictionaries
+
+## 0.1.5
+
+### Patch Changes
+
+- [`7013b53`](https://github.com/lingodotdev/lingo.dev/commit/7013b5300d6c2c26f39da62b5ad2c7cf11158c74) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - value.trim() issue
+
+## 0.1.4
+
+### Patch Changes
+
+- [#853](https://github.com/lingodotdev/lingo.dev/pull/853) [`cb7d5e2`](https://github.com/lingodotdev/lingo.dev/commit/cb7d5e213282c00af658159472183a763f84ca3d) Thanks [@vrcprl](https://github.com/vrcprl)! - Fix groq api key retrieval from .env
+
 ## 0.1.3
 
 ### Patch Changes

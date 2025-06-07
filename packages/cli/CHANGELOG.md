@@ -1,5 +1,86 @@
 # lingo.dev
 
+## 0.94.1
+
+### Patch Changes
+
+- Updated dependencies [[`a7bf553`](https://github.com/lingodotdev/lingo.dev/commit/a7bf5538b5b72e41f90371f6211378aac7d5f800), [`562e667`](https://github.com/lingodotdev/lingo.dev/commit/562e667471abb51d7dd193217eefb8e8b3f8a686)]:
+  - @lingo.dev/_react@0.2.2
+
+## 0.94.0
+
+### Minor Changes
+
+- [#864](https://github.com/lingodotdev/lingo.dev/pull/864) [`3750c9c`](https://github.com/lingodotdev/lingo.dev/commit/3750c9ca25a78280b04e4a2b2e6641dd21f9f3b0) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): add `login` and `logout` commands to replace `auth --login` and `auth --logout`
+
+### Patch Changes
+
+- Updated dependencies [[`77461a7`](https://github.com/lingodotdev/lingo.dev/commit/77461a7872eec3ea188b3ca6c6f7ce1fd13fdfbb)]:
+  - @lingo.dev/_compiler@0.1.9
+
+## 0.93.13
+
+### Patch Changes
+
+- Updated dependencies [[`1bccb7e`](https://github.com/lingodotdev/lingo.dev/commit/1bccb7ed51ac1f13ea79e618bbee551d5529efdc)]:
+  - @lingo.dev/_compiler@0.1.8
+
+## 0.93.12
+
+### Patch Changes
+
+- Updated dependencies [[`5b68641`](https://github.com/lingodotdev/lingo.dev/commit/5b686414f363f8ee4b79fd4e804a434db5cfcb36)]:
+  - @lingo.dev/_compiler@0.1.7
+
+## 0.93.11
+
+### Patch Changes
+
+- Updated dependencies [[`1f9db11`](https://github.com/lingodotdev/lingo.dev/commit/1f9db11a53d8c75ce0e83517b73d43544d0f0fd2)]:
+  - @lingo.dev/_react@0.2.1
+
+## 0.93.10
+
+### Patch Changes
+
+- Updated dependencies [[`7a5898b`](https://github.com/lingodotdev/lingo.dev/commit/7a5898b12dcd0015a5e57236bf65172cedb8a6ee)]:
+  - @lingo.dev/_compiler@0.1.6
+
+## 0.93.9
+
+### Patch Changes
+
+- Updated dependencies [[`7013b53`](https://github.com/lingodotdev/lingo.dev/commit/7013b5300d6c2c26f39da62b5ad2c7cf11158c74)]:
+  - @lingo.dev/_compiler@0.1.5
+
+## 0.93.8
+
+### Patch Changes
+
+- [#853](https://github.com/lingodotdev/lingo.dev/pull/853) [`cb7d5e2`](https://github.com/lingodotdev/lingo.dev/commit/cb7d5e213282c00af658159472183a763f84ca3d) Thanks [@vrcprl](https://github.com/vrcprl)! - Fix groq api key retrieval from .env
+
+- Updated dependencies [[`cb7d5e2`](https://github.com/lingodotdev/lingo.dev/commit/cb7d5e213282c00af658159472183a763f84ca3d)]:
+  - @lingo.dev/_compiler@0.1.4
+
+## 0.93.7
+
+### Patch Changes
+
+- [`5d27455`](https://github.com/lingodotdev/lingo.dev/commit/5d2745545044cbaddb099f7920c96fe198879ba3) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add boolean parsing
+
+## 0.93.6
+
+### Patch Changes
+
+- [#843](https://github.com/lingodotdev/lingo.dev/pull/843) [`b67a331`](https://github.com/lingodotdev/lingo.dev/commit/b67a33141253fa755b5531e52cd690bf5824d4b6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - explicit source / targets in run cmd, parallel mode for ci/cd
+
+## 0.93.5
+
+### Patch Changes
+
+- Updated dependencies [[`e75e615`](https://github.com/lingodotdev/lingo.dev/commit/e75e615ab17e279deb5a505dbda682fdfc7ead62)]:
+  - @lingo.dev/_react@0.2.0
+
 ## 0.93.4
 
 ### Patch Changes
