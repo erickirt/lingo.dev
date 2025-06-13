@@ -1,89 +1,136 @@
-> [!NOTE]
-> **লিঙ্গো.ডেভ কম্পাইলার পরিচিতি** - বিল্ড টাইমে আপনার কম্পোনেন্টগুলি পরিবর্তন না করেই যেকোনো রিঅ্যাক্ট অ্যাপকে বহুভাষিক করুন। [ডকুমেন্টেশন পড়ুন](https://lingo.dev/compiler)।
-
 <p align="center">
-  <a href="https://lingo.dev/compiler">
+  <a href="https://lingo.dev">
     <img src="https://raw.githubusercontent.com/lingodotdev/lingo.dev/main/content/banner.compiler.png" width="100%" alt="Lingo.dev" />
   </a>
 </p>
 
 <p align="center">
-  <strong>⚡️ ওয়েব ও মোবাইল লোকালাইজেশনের জন্য এআই-চালিত ওপেন-সোর্স টুলস।</strong>
+  <strong>⚡️ এলএলএম দ্বারা তাৎক্ষণিক লোকালাইজেশনের জন্য এআই-চালিত, ওপেন-সোর্স i18n টুলকিট।</strong>
 </p>
 
 <br />
 
 <p align="center">
-  <a href="https://lingo.dev/cli">লিঙ্গো.ডেভ CLI</a> •
-  <a href="https://lingo.dev/ci">লিঙ্গো.ডেভ CI/CD</a> •
-  <a href="https://lingo.dev/compiler">লিঙ্গো.ডেভ কম্পাইলার 🆕</a>
+  <a href="https://lingo.dev/compiler">Lingo.dev কম্পাইলার</a> •
+  <a href="https://lingo.dev/cli">Lingo.dev CLI</a> •
+  <a href="https://lingo.dev/ci">Lingo.dev CI/CD</a> •
+  <a href="https://lingo.dev/sdk">Lingo.dev SDK</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml">
-    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="Release" />
+    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="রিলিজ" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="License" />
+    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="লাইসেন্স" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/commits/main">
-    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="Last Commit" />
+    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="সর্বশেষ কমিট" />
   </a>
 </p>
 
-<br />
+---
 
-লিঙ্গো.ডেভ হল একটি ওপেন-সোর্স, i18n টুলকিট যা ওয়েব, মোবাইল অ্যাপ এবং মার্কডাউন কন্টেন্টের লোকালাইজেশন ও অনুবাদের জন্য LLM ব্যবহার করতে সাহায্য করার জন্য ডিজাইন করা হয়েছে।
+## কম্পাইলারের সাথে পরিচিত হোন 🆕
 
-লিঙ্গো.ডেভে অন্তর্ভুক্ত রয়েছে:
+**Lingo.dev কম্পাইলার** একটি ফ্রি, ওপেন-সোর্স কম্পাইলার মিডলওয়্যার, যা বিদ্যমান রিঅ্যাক্ট কম্পোনেন্টগুলিতে কোনো পরিবর্তন না করেই বিল্ড টাইমে যেকোনো রিঅ্যাক্ট অ্যাপকে বহুভাষিক করার জন্য ডিজাইন করা হয়েছে।
 
-1. **লিঙ্গো.ডেভ CLI** - অ্যাপ এবং মার্কডাউন কন্টেন্ট অত্যন্ত দ্রুত ও নির্ভুলভাবে অনুবাদ করতে সাহায্য করার জন্য নির্মিত একটি CLI টুল। [ডকুমেন্টেশন](https://lingo.dev/cli)
-1. **লিঙ্গো.ডেভ CI/CD** - GitHub, GitLab, এবং Bitbucket এর জন্য নির্মিত একটি CI/CD ইন্টিগ্রেশন যা নতুন কন্টেন্ট যোগ করার সাথে সাথে স্বয়ংক্রিয়ভাবে অনুবাদগুলি আপডেট রাখতে সাহায্য করে। [ডকুমেন্টেশন](https://lingo.dev/ci)
-1. **লিঙ্গো.ডেভ কম্পাইলার 🆕** - বিদ্যমান কম্পোনেন্টগুলিতে পরিবর্তন না করেই বিল্ড টাইমে রিঅ্যাক্ট অ্যাপকে বহুভাষিক করে তোলে। [ডকুমেন্টেশন](https://lingo.dev/compiler)
+---CODE-PLACEHOLDER-f159f7253d409892d00e70ee045902a5---
 
-সমস্ত টুল নির্ভুল অনুবাদ ও লোকালাইজেশনের জন্য LLM মডেল ব্যবহার করতে এবং ম্যানুয়াল কাজ দূর করতে সাহায্য করার জন্য ডিজাইন করা হয়েছে।
+`next build` চালান এবং স্প্যানিশ এবং ফরাসি বান্ডলগুলি দেখুন ✨
 
-## লিঙ্গো.ডেভ কম্পাইলার ডেমো
+সম্পূর্ণ গাইডের জন্য [ডকুমেন্টেশন পড়ুন →](https://lingo.dev/compiler)।
 
-লিঙ্গো.ডেভ কম্পাইলার কার্যক্রম দেখুন:
+---
 
-[![লিঙ্গো.ডেভ কম্পাইলার ডেমো](https://img.youtube.com/vi/sSo2ERxAvB4/0.jpg)](https://youtu.be/sSo2ERxAvB4)
+### এই রিপোজিটরিতে কী আছে?
 
-লিঙ্গো.ডেভ কম্পাইলার বিদ্যমান কম্পোনেন্টগুলিতে পরিবর্তন না করেই বিল্ড টাইমে রিঅ্যাক্ট অ্যাপকে বহুভাষিক করে তোলে।
+| টুল          | সংক্ষিপ্ত বিবরণ                                                                | ডকুমেন্টেশন                                 |
+| ------------ | ------------------------------------------------------------------------------ | ------------------------------------------ |
+| **কম্পাইলার** | বিল্ড-টাইম রিঅ্যাক্ট লোকালাইজেশন                                              | [/compiler](https://lingo.dev/compiler) |
+| **CLI**      | ওয়েব এবং মোবাইল অ্যাপ, JSON, YAML, মার্কডাউন, + আরও অনেক কিছুর জন্য এক-কমান্ড লোকালাইজেশন | [/cli](https://lingo.dev/cli)           |
+| **CI/CD**    | প্রতিটি পুশে অটো-কমিট অনুবাদ + প্রয়োজনে পুল রিকোয়েস্ট তৈরি করুন                | [/ci](https://lingo.dev/ci)             |
+| **SDK**      | ব্যবহারকারী-তৈরি কন্টেন্টের জন্য রিয়েলটাইম অনুবাদ                            | [/sdk](https://lingo.dev/sdk)           |
 
-শুধুমাত্র কম্পাইলার চালান এবং আপনার বিদ্যমান LLM API কী ব্যবহার করে আপনার অ্যাপ স্বয়ংক্রিয়ভাবে একাধিক ভাষা সমর্থন করবে।
+নিচে প্রতিটির সংক্ষিপ্ত বিবরণ দেওয়া হল 👇
 
-ডেমো দেখার পরে, আরও জানতে [ডকুমেন্টেশন](https://lingo.dev/compiler) দেখুন।
+---
+
+### ⚡️ Lingo.dev CLI
+
+আপনার টার্মিনাল থেকে সরাসরি কোড এবং কন্টেন্ট অনুবাদ করুন।
+
+---CODE-PLACEHOLDER-a4836309dda7477e1ba399e340828247---
+
+এটি প্রতিটি স্ট্রিং-এর ফিঙ্গারপ্রিন্ট তৈরি করে, ফলাফল ক্যাশে রাখে, এবং শুধুমাত্র পরিবর্তিত অংশগুলি পুনরায় অনুবাদ করে।
+
+[ডকুমেন্টেশন পড়ুন →](https://lingo.dev/cli)
+
+---
+
+### 🔄 Lingo.dev CI/CD
+
+স্বয়ংক্রিয়ভাবে নিখুঁত অনুবাদ প্রকাশ করুন।
+
+```yaml
+# .github/workflows/i18n.yml
+name: Lingo.dev i18n
+on: [push]
+
+jobs:
+  i18n:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lingodotdev/lingo.dev@main
+        with:
+          api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
+```
+
+ম্যানুয়াল পদক্ষেপ ছাড়াই আপনার রিপোজিটরি সবুজ এবং আপনার প্রোডাক্ট বহুভাষিক রাখে।
+
+[ডকুমেন্টেশন পড়ুন →](https://lingo.dev/ci)
+
+---
+
+### 🧩 Lingo.dev SDK
+
+ডাইনামিক কন্টেন্টের জন্য তাৎক্ষণিক প্রতি-অনুরোধ অনুবাদ।
+
+---CODE-PLACEHOLDER-c50e1e589a70e31dd2dde95be8da6ddf---
+
+চ্যাট, ব্যবহারকারী মন্তব্য এবং অন্যান্য রিয়েল-টাইম ফ্লো-এর জন্য নিখুঁত।
+
+[ডকুমেন্টেশন পড়ুন →](https://lingo.dev/sdk)
+
+---
 
 ## 🤝 কমিউনিটি
 
-Lingo.dev কমিউনিটি-চালিত, তাই আমরা সমস্ত অবদান স্বাগত জানাই!
+আমরা কমিউনিটি-চালিত এবং অবদান পছন্দ করি!
 
-নতুন ফিচারের জন্য একটি আইডিয়া আছে? একটি GitHub ইস্যু তৈরি করুন!
+- একটি আইডিয়া আছে? [একটি ইস্যু খুলুন](https://github.com/lingodotdev/lingo.dev/issues)
+- কিছু ঠিক করতে চান? [একটি PR পাঠান](https://github.com/lingodotdev/lingo.dev/pulls)
+- সাহায্য দরকার? [আমাদের Discord-এ যোগ দিন](https://lingo.dev/go/discord)
 
-অবদান রাখতে চান? একটি পুল রিকোয়েস্ট তৈরি করুন!
+## ⭐ স্টার হিস্টরি
 
-আপনার আইডিয়া নিয়ে আলোচনা করতে চান বা সাহায্য পেতে চান? [আমাদের সাথে Discord-এ যোগ দিন!](https://lingo.dev/go/discord)
+আমরা যা করছি তা যদি আপনার পছন্দ হয়, আমাদের একটি ⭐ দিন এবং ৩,০০০ স্টার পৌঁছাতে সাহায্য করুন! 🌟
 
-## স্টার হিস্টরি
+[
 
-আমরা যে কাজ করছি তা যদি আপনার পছন্দ হয়, তাহলে আমাদের একটি ⭐️ দিয়ে 3,000 স্টার পৌঁছাতে সাহায্য করুন! 🌟
+![স্টার হিস্টরি চার্ট](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)
 
-[![স্টার হিস্টরি চার্ট](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
+](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
 
 ## 🌐 অন্যান্য ভাষায় রিডমি
 
-- [ইংরেজি](https://github.com/lingodotdev/lingo.dev)
-- [চাইনিজ](/readme/zh-Hans.md)
-- [জাপানিজ](/readme/ja.md)
-- [কোরিয়ান](/readme/ko.md)
-- [স্প্যানিশ](/readme/es.md)
-- [ফ্রেঞ্চ](/readme/fr.md)
-- [রাশিয়ান](/readme/ru.md)
-- [জার্মান](/readme/de.md)
-- [ইতালিয়ান](/readme/it.md)
-- [আরবি](/readme/ar.md)
-- [হিন্দি](/readme/hi.md)
-- [বাংলা](/readme/bn.md)
+[English](https://github.com/lingodotdev/lingo.dev) • [中文](/readme/zh-Hans.md) • [日本語](/readme/ja.md) • [한국어](/readme/ko.md) • [Español](/readme/es.md) • [Français](/readme/fr.md) • [Русский](/readme/ru.md) • [Deutsch](/readme/de.md) • [Italiano](/readme/it.md) • [العربية](/readme/ar.md) • [हिन्दी](/readme/hi.md) • [বাংলা](/readme/bn.md) • [فارسی](/readme/fa.md)
 
-আপনার ভাষা দেখতে পাচ্ছেন না? শুধু [`i18n.json`](./i18n.json) ফাইলে একটি নতুন ভাষা কোড যোগ করুন এবং একটি PR খুলুন!
+আপনার ভাষা দেখতে পাচ্ছেন না? [`i18n.json`](./i18n.json)-এ এটি যোগ করুন এবং একটি PR খুলুন!
+
+## 🌐 অন্যান্য ভাষায় রিডমি
+
+[English](https://github.com/lingodotdev/lingo.dev) • [中文](/readme/zh-Hans.md) • [日本語](/readme/ja.md) • [한국어](/readme/ko.md) • [Español](/readme/es.md) • [Français](/readme/fr.md) • [Русский](/readme/ru.md) • [Deutsch](/readme/de.md) • [Italiano](/readme/it.md) • [العربية](/readme/ar.md) • [हिन्दी](/readme/hi.md) • [বাংলা](/readme/bn.md) • [فارسی](/readme/fa.md)
+
+আপনার ভাষা দেখতে পাচ্ছেন না? এটি [`i18n.json`](./i18n.json) এ যোগ করুন এবং একটি PR খুলুন!

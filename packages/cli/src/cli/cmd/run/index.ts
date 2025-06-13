@@ -10,15 +10,22 @@ import {
   renderHero,
   pauseIfDebug,
   renderSummary,
-} from "./_render";
+} from "../../utils/ui";
+import chalk from "chalk";
+import trackEvent from "../../utils/observability";
+import { determineAuthId } from "./_utils";
 
 export default new Command()
   .command("run")
   .description("Run Lingo.dev localization engine")
   .helpOption("-h, --help", "Show help")
   .option(
-    "--locale <locale>",
-    "Locale to process",
+    "--source-locale <source-locale>",
+    "Locale to use as source locale. Defaults to i18n.json locale.source",
+  )
+  .option(
+    "--target-locale <target-locale>",
+    "Locale to use as target locale. Defaults to i18n.json locale.targets",
     (val: string, prev: string[]) => (prev ? [...prev, val] : [val]),
   )
   .option(
@@ -54,6 +61,7 @@ export default new Command()
     (val: string) => parseInt(val),
   )
   .action(async (args) => {
+    let authId: string | null = null;
     try {
       const ctx: CmdRunContext = {
         flags: flagsSchema.parse(args),
@@ -71,6 +79,14 @@ export default new Command()
       await renderSpacer();
 
       await setup(ctx);
+
+      authId = await determineAuthId(ctx);
+
+      trackEvent(authId, "cmd.run.start", {
+        config: ctx.config,
+        flags: ctx.flags,
+      });
+
       await renderSpacer();
 
       await plan(ctx);
@@ -79,9 +95,15 @@ export default new Command()
       await execute(ctx);
       await renderSpacer();
 
-      await renderSummary(ctx);
+      await renderSummary(ctx.results);
       await renderSpacer();
+
+      trackEvent(authId, "cmd.run.success", {
+        config: ctx.config,
+        flags: ctx.flags,
+      });
     } catch (error: any) {
+      trackEvent(authId || "unknown", "cmd.run.error", {});
       process.exit(1);
     }
   });

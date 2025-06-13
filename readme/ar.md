@@ -1,89 +1,168 @@
-> [!NOTE]
-> **تقديم Lingo.dev Compiler** - اجعل أي تطبيق React متعدد اللغات في وقت البناء دون تغيير مكوناتك. [اقرأ الوثائق](https://lingo.dev/compiler).
-
 <p align="center">
-  <a href="https://lingo.dev/compiler">
+  <a href="https://lingo.dev">
     <img src="https://raw.githubusercontent.com/lingodotdev/lingo.dev/main/content/banner.compiler.png" width="100%" alt="Lingo.dev" />
   </a>
 </p>
 
 <p align="center">
-  <strong>⚡️ أدوات مفتوحة المصدر مدعومة بالذكاء الاصطناعي لتوطين الويب والجوال.</strong>
+  <strong>⚡ Lingo.dev - مجموعة أدوات i18n مفتوحة المصدر ومدعومة بالذكاء الاصطناعي للترجمة الفورية باستخدام نماذج اللغة الكبيرة.</strong>
 </p>
 
 <br />
 
 <p align="center">
-  <a href="https://lingo.dev/cli">Lingo.dev CLI</a> •
-  <a href="https://lingo.dev/ci">Lingo.dev CI/CD</a> •
-  <a href="https://lingo.dev/compiler">Lingo.dev Compiler 🆕</a>
+  <a href="https://lingo.dev/compiler">مُجمّع Lingo.dev</a> •
+  <a href="https://lingo.dev/cli">واجهة سطر أوامر Lingo.dev</a> •
+  <a href="https://lingo.dev/ci">التكامل والتسليم المستمر Lingo.dev</a> •
+  <a href="https://lingo.dev/sdk">مجموعة أدوات تطوير البرمجيات Lingo.dev</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml">
-    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="Release" />
+    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="الإصدار" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="License" />
+    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="الترخيص" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/commits/main">
-    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="Last Commit" />
+    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="آخر التزام" />
   </a>
 </p>
 
-<br />
+---
 
-Lingo.dev هو مجموعة أدوات مفتوحة المصدر للتدويل (i18n) مصممة للمساعدة في استخدام نماذج اللغة الكبيرة (LLMs) لتوطين وترجمة تطبيقات الويب والجوال والمحتوى بصيغة markdown.
+## تعرف على المُجمّع 🆕
 
-يتضمن Lingo.dev:
+**مُجمّع Lingo.dev** هو وسيط تجميع مفتوح المصدر ومجاني، مصمم لجعل أي تطبيق React متعدد اللغات في وقت البناء دون الحاجة إلى إجراء أي تغييرات على مكونات React الحالية.
 
-1. **Lingo.dev CLI** - أداة سطر أوامر مبنية للمساعدة في ترجمة التطبيقات ومحتوى markdown بسرعة ودقة فائقة. [الوثائق](https://lingo.dev/cli)
-1. **Lingo.dev CI/CD** - تكامل CI/CD لـ GitHub وGitLab وBitbucket مبني للحفاظ على الترجمات محدثة تلقائيًا بمجرد إضافة محتوى جديد. [الوثائق](https://lingo.dev/ci)
-1. **Lingo.dev Compiler 🆕** - يجعل تطبيق React متعدد اللغات في وقت البناء دون الحاجة إلى تغييرات في المكونات الحالية. [الوثائق](https://lingo.dev/compiler)
+التثبيت مرة واحدة:
 
-جميع الأدوات مصممة للمساعدة في استخدام نماذج LLM للترجمة والتوطين الدقيق، وللقضاء على العمل اليدوي.
+```bash
+npm install lingo.dev
+```
 
-## عرض توضيحي لـ Lingo.dev Compiler
+التفعيل في إعدادات البناء الخاصة بك:
 
-شاهد Lingo.dev Compiler قيد العمل:
+```js
+import lingoCompiler from "lingo.dev/compiler";
 
-[![عرض توضيحي لـ Lingo.dev Compiler](https://img.youtube.com/vi/sSo2ERxAvB4/0.jpg)](https://youtu.be/sSo2ERxAvB4)
+const existingNextConfig = {};
 
-يجعل Lingo.dev Compiler تطبيقات React متعددة اللغات في وقت البناء دون الحاجة إلى تغييرات في المكونات الحالية.
+export default lingoCompiler.next({
+  sourceLocale: "en",
+  targetLocales: ["es", "fr"],
+})(existingNextConfig);
+```
 
-ما عليك سوى تشغيل المُجمِّع وسيدعم تطبيقك لغات متعددة تلقائيًا، باستخدام مفتاح واجهة برمجة تطبيقات LLM الحالي لديك.
+قم بتشغيل `next build` وشاهد حزم اللغة الإسبانية والفرنسية تظهر ✨
 
-بعد مشاهدة العرض التوضيحي، راجع [الوثائق](https://lingo.dev/compiler) لمعرفة المزيد.
+[اقرأ الوثائق ←](https://lingo.dev/compiler) للدليل الكامل، و[انضم إلى Discord الخاص بنا](https://lingo.dev/go/discord) للحصول على المساعدة في الإعداد.
+
+---
+
+### ما الذي يوجد في هذا المستودع؟
+
+| الأداة         | ملخص سريع                                                                    | الوثائق                                    |
+| ------------ | ------------------------------------------------------------------------------ | --------------------------------------- |
+| **المترجم** | ترجمة React في وقت البناء                                                  | [/compiler](https://lingo.dev/compiler) |
+| **واجهة سطر الأوامر**      | أمر واحد للترجمة لتطبيقات الويب والجوال، JSON، YAML، markdown، وأكثر | [/cli](https://lingo.dev/cli)           |
+| **CI/CD**    | الالتزام التلقائي بالترجمات مع كل دفع وإنشاء طلبات السحب إذا لزم الأمر        | [/ci](https://lingo.dev/ci)             |
+| **SDK**      | ترجمة فورية للمحتوى الذي ينشئه المستخدم                                | [/sdk](https://lingo.dev/sdk)           |
+
+فيما يلي نظرة سريعة على كل منها 👇
+
+---
+
+### ⚡️ واجهة سطر أوامر Lingo.dev
+
+ترجمة الكود والمحتوى مباشرة من الطرفية الخاصة بك.
+
+```bash
+npx lingo.dev@latest run
+```
+
+تقوم بتحديد بصمة لكل نص، وتخزين النتائج في ذاكرة التخزين المؤقت، وإعادة ترجمة ما تغير فقط.
+
+[اتبع الوثائق ←](https://lingo.dev/cli) لمعرفة كيفية إعدادها.
+
+---
+
+### 🔄 CI/CD من Lingo.dev
+
+نشر ترجمات مثالية تلقائيًا.
+
+```yaml
+# .github/workflows/i18n.yml
+name: Lingo.dev i18n
+on: [push]
+
+jobs:
+  i18n:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lingodotdev/lingo.dev@main
+        with:
+          api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
+```
+
+تحافظ على مستودعك في حالة جيدة ومنتجك متعدد اللغات دون خطوات يدوية.
+
+[اقرأ الوثائق ←](https://lingo.dev/ci)
+
+---
+
+### 🧩 SDK من Lingo.dev
+
+ترجمة فورية لكل طلب للمحتوى الديناميكي.
+
+```ts
+import { LingoDotDevEngine } from "lingo.dev/sdk";
+
+const lingoDotDev = new LingoDotDevEngine({
+  apiKey: "your-api-key-here",
+});
+
+const content = {
+  greeting: "Hello",
+  farewell: "Goodbye",
+  message: "Welcome to our platform",
+};
+
+const translated = await lingoDotDev.localizeObject(content, {
+  sourceLocale: "en",
+  targetLocale: "es",
+});
+// Returns: { greeting: "Hola", farewell: "Adiós", message: "Bienvenido a nuestra plataforma" }
+
+```
+
+مثالي للدردشة، وتعليقات المستخدمين، وغيرها من التدفقات في الوقت الفعلي.
+
+[اقرأ الوثائق ←](https://lingo.dev/sdk)
+
+---
 
 ## 🤝 المجتمع
 
-Lingo.dev مدفوع بالمجتمع، لذلك نرحب بجميع المساهمات!
+نحن مدفوعون بالمجتمع ونحب المساهمات!
 
-هل لديك فكرة لميزة جديدة؟ قم بإنشاء مشكلة على GitHub!
+- لديك فكرة؟ [افتح مشكلة](https://github.com/lingodotdev/lingo.dev/issues)
+- تريد إصلاح شيء ما؟ [أرسل طلب سحب](https://github.com/lingodotdev/lingo.dev/pulls)
+- تحتاج إلى مساعدة؟ [انضم إلى Discord الخاص بنا](https://lingo.dev/go/discord)
 
-تريد المساهمة؟ قم بإنشاء طلب سحب!
+## ⭐ تاريخ النجوم
 
-تريد مناقشة فكرتك أو الحصول على مساعدة؟ [انضم إلينا على Discord!](https://lingo.dev/go/discord)
+إذا أعجبك ما نقوم به، امنحنا ⭐ وساعدنا في الوصول إلى 3,000 نجمة! 🌟
 
-## تاريخ النجوم
+[
 
-إذا أعجبك العمل الذي نقوم به، فكر في منحنا ⭐️ لمساعدتنا في الوصول إلى 3,000 نجمة! 🌟
+![مخطط تاريخ النجوم](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)
 
-[![مخطط تاريخ النجوم](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
+](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
 
 ## 🌐 الملف التعريفي بلغات أخرى
 
-- [الإنجليزية](https://github.com/lingodotdev/lingo.dev)
-- [الصينية](/readme/zh-Hans.md)
-- [اليابانية](/readme/ja.md)
-- [الكورية](/readme/ko.md)
-- [الإسبانية](/readme/es.md)
-- [الفرنسية](/readme/fr.md)
-- [الروسية](/readme/ru.md)
-- [الألمانية](/readme/de.md)
-- [الإيطالية](/readme/it.md)
-- [العربية](/readme/ar.md)
-- [الهندية](/readme/hi.md)
-- [البنغالية](/readme/bn.md)
+[English](https://github.com/lingodotdev/lingo.dev) • [中文](/readme/zh-Hans.md) • [日本語](/readme/ja.md) • [한국어](/readme/ko.md) • [Español](/readme/es.md) • [Français](/readme/fr.md) • [Русский](/readme/ru.md) • [Deutsch](/readme/de.md) • [Italiano](/readme/it.md) • [العربية](/readme/ar.md) • [हिन्दी](/readme/hi.md) • [বাংলা](/readme/bn.md) • [فارسی](/readme/fa.md)
 
-لا ترى لغتك؟ ما عليك سوى إضافة رمز لغة جديد إلى ملف [`i18n.json`](./i18n.json) وفتح طلب سحب!
+لا ترى لغتك؟ أضفها إلى [`i18n.json`](./i18n.json) وافتح طلب سحب!
