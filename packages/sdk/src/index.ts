@@ -122,7 +122,10 @@ export class LingoDotDevEngine {
     });
 
     if (!res.ok) {
-      if (res.status === 400) {
+      if (res.status >= 500 && res.status < 600) {
+        const errorText = await res.text();
+        throw new Error(`Server error (${res.status}): ${res.statusText}. ${errorText}. This may be due to temporary service issues.`);
+      } else if (res.status === 400) {
         throw new Error(`Invalid request: ${res.statusText}`);
       } else {
         const errorText = await res.text();
@@ -463,6 +466,9 @@ export class LingoDotDevEngine {
     });
 
     if (!response.ok) {
+      if (response.status >= 500 && response.status < 600) {
+        throw new Error(`Server error (${response.status}): ${response.statusText}. This may be due to temporary service issues.`);
+      }
       throw new Error(`Error recognizing locale: ${response.statusText}`);
     }
 
@@ -492,8 +498,15 @@ export class LingoDotDevEngine {
         };
       }
 
+      if (res.status >= 500 && res.status < 600) {
+        throw new Error(`Server error (${res.status}): ${res.statusText}. This may be due to temporary service issues.`);
+      }
+
       return null;
     } catch (error) {
+      if (error instanceof Error && error.message.includes('Server error')) {
+        throw error;
+      }
       return null;
     }
   }
@@ -511,7 +524,7 @@ export class ReplexicaEngine extends LingoDotDevEngine {
       console.warn(
         "ReplexicaEngine is deprecated and will be removed in a future release. " +
           "Please use LingoDotDevEngine instead. " +
-          "See https://docs.lingo.dev/migration for more information.",
+          "See https://lingo.dev/cli for more information.",
       );
       ReplexicaEngine.hasWarnedDeprecation = true;
     }
@@ -530,7 +543,7 @@ export class LingoEngine extends LingoDotDevEngine {
       console.warn(
         "LingoEngine is deprecated and will be removed in a future release. " +
           "Please use LingoDotDevEngine instead. " +
-          "See https://docs.lingo.dev/migration for more information.",
+          "See https://lingo.dev/cli for more information.",
       );
       LingoEngine.hasWarnedDeprecation = true;
     }

@@ -11,17 +11,16 @@ export type CompilerParams = {
   rsc: boolean;
   useDirective: boolean;
   debug: boolean;
-  models: Record<string, string>;
+  models: "lingo.dev" | Record<string, string>;
 };
 export type CompilerInput = {
-  fileKey: string;
+  relativeFilePath: string;
   code: string;
   params: CompilerParams;
 };
 
 export type CompilerPayload = CompilerInput & {
   ast: t.File;
-  fileKey: string;
 };
 export type CompilerOutput = {
   code: string;
