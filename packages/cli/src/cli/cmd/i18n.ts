@@ -176,7 +176,6 @@ export default new Command()
               bucket.type,
               bucketPath.pathPattern,
               {
-                isCacheRestore: false,
                 defaultLocale: sourceLocale,
                 injectLocale: bucket.injectLocale,
               },
@@ -215,7 +214,6 @@ export default new Command()
               bucket.type,
               bucketPath.pathPattern,
               {
-                isCacheRestore: false,
                 defaultLocale: sourceLocale,
                 returnUnlocalizedKeys: true,
                 injectLocale: bucket.injectLocale,
@@ -324,7 +322,6 @@ export default new Command()
               bucket.type,
               bucketPath.pathPattern,
               {
-                isCacheRestore: false,
                 defaultLocale: sourceLocale,
                 injectLocale: bucket.injectLocale,
               },
@@ -380,7 +377,9 @@ export default new Command()
                 }
 
                 bucketOra.start(
-                  `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`,
+                  `[${sourceLocale} -> ${targetLocale}] [${
+                    Object.keys(processableData).length
+                  } entries] (0%) AI localization in progress...`,
                 );
                 let processPayload = createProcessor(i18nConfig!.provider, {
                   apiKey: settings.auth.apiKey,
@@ -401,7 +400,9 @@ export default new Command()
                     targetData,
                   },
                   (progress, sourceChunk, processedChunk) => {
-                    bucketOra.text = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                    bucketOra.text = `[${sourceLocale} -> ${targetLocale}] [${
+                      Object.keys(processableData).length
+                    } entries] (${progress}%) AI localization in progress...`;
                   },
                 );
 
@@ -610,7 +611,9 @@ async function reviewChanges(args: {
   // Early return if no changes
   if (currentStr === proposedStr && !args.force) {
     console.log(
-      `\n${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}): ${chalk.gray("No changes to review")}`,
+      `\n${chalk.blue(args.pathPattern)} (${chalk.yellow(
+        args.targetLocale,
+      )}): ${chalk.gray("No changes to review")}`,
     );
     return args.proposedData;
   }
@@ -637,7 +640,9 @@ async function reviewChanges(args: {
     .join("\n");
 
   console.log(
-    `\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`,
+    `\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(
+      args.targetLocale,
+    )}):`,
   );
   console.log(coloredDiff);
 

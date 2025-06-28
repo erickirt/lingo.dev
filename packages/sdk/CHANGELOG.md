@@ -1,5 +1,47 @@
 # @lingo.dev/\_sdk
 
+## 0.9.4
+
+### Patch Changes
+
+- Updated dependencies [[`84fd214`](https://github.com/lingodotdev/lingo.dev/commit/84fd214a21766e7683c5d645fcb8c4c0162eb0b6)]:
+  - @lingo.dev/_spec@0.38.0
+
+## 0.9.3
+
+### Patch Changes
+
+- Updated dependencies [[`ce8c75c`](https://github.com/lingodotdev/lingo.dev/commit/ce8c75c7fc1a2124d3e18444bc356c4dfce26434)]:
+  - @lingo.dev/_spec@0.37.0
+
+## 0.9.2
+
+### Patch Changes
+
+- [#937](https://github.com/lingodotdev/lingo.dev/pull/937) [`4e5983d`](https://github.com/lingodotdev/lingo.dev/commit/4e5983d7e59ebf9eb529c4b7c1c87689432ac873) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Update documentation URLs from docs.lingo.dev to lingo.dev/cli and lingo.dev/compiler
+
+## 0.9.1
+
+### Patch Changes
+
+- Updated dependencies [[`1b9b113`](https://github.com/lingodotdev/lingo.dev/commit/1b9b11301978e8caa2555832d027ff93216aa6e1), [`0329a9c`](https://github.com/lingodotdev/lingo.dev/commit/0329a9cdb5e5a63fcecab4efcd7cce22f155a0e9)]:
+  - @lingo.dev/_spec@0.36.0
+
+## 0.9.0
+
+### Minor Changes
+
+- [#915](https://github.com/lingodotdev/lingo.dev/pull/915) [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - feat: enhance 5xx error handling with Cloudflare status integration
+
+- [#915](https://github.com/lingodotdev/lingo.dev/pull/915) [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - feat: enhance 5xx error handling with Cloudflare status integration
+
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [[`a5da697`](https://github.com/lingodotdev/lingo.dev/commit/a5da697f7efd46de31d17b202d06eb5f655ed9b9)]:
+  - @lingo.dev/_spec@0.35.0
+
 ## 0.8.0
 
 ### Minor Changes

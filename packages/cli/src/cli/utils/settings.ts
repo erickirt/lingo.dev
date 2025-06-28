@@ -36,6 +36,10 @@ export function getSettings(explicitApiKey: string | undefined): CliSettings {
       openaiApiKey: env.OPENAI_API_KEY || systemFile.llm?.openaiApiKey,
       anthropicApiKey: env.ANTHROPIC_API_KEY || systemFile.llm?.anthropicApiKey,
       groqApiKey: env.GROQ_API_KEY || systemFile.llm?.groqApiKey,
+      googleApiKey: env.GOOGLE_API_KEY || systemFile.llm?.googleApiKey,
+      openrouterApiKey:
+        env.OPENROUTER_API_KEY || systemFile.llm?.openrouterApiKey,
+      mistralApiKey: env.MISTRAL_API_KEY || systemFile.llm?.mistralApiKey,
     },
   };
 }
@@ -68,6 +72,9 @@ const SettingsSchema = Z.object({
     openaiApiKey: Z.string().optional(),
     anthropicApiKey: Z.string().optional(),
     groqApiKey: Z.string().optional(),
+    googleApiKey: Z.string().optional(),
+    openrouterApiKey: Z.string().optional(),
+    mistralApiKey: Z.string().optional(),
   }),
 });
 
@@ -96,6 +103,9 @@ function _loadEnv() {
     OPENAI_API_KEY: Z.string().optional(),
     ANTHROPIC_API_KEY: Z.string().optional(),
     GROQ_API_KEY: Z.string().optional(),
+    GOOGLE_API_KEY: Z.string().optional(),
+    OPENROUTER_API_KEY: Z.string().optional(),
+    MISTRAL_API_KEY: Z.string().optional(),
   })
     .passthrough()
     .parse(process.env);
@@ -118,6 +128,9 @@ function _loadSystemFile() {
       openaiApiKey: Z.string().optional(),
       anthropicApiKey: Z.string().optional(),
       groqApiKey: Z.string().optional(),
+      googleApiKey: Z.string().optional(),
+      openrouterApiKey: Z.string().optional(),
+      mistralApiKey: Z.string().optional(),
     }).optional(),
   })
     .passthrough()
@@ -180,6 +193,24 @@ function _envVarsInfo() {
     console.info(
       "\x1b[36m%s\x1b[0m",
       `ℹ️  Using GROQ_API_KEY env var instead of key from user config`,
+    );
+  }
+  if (env.GOOGLE_API_KEY && systemFile.llm?.googleApiKey) {
+    console.info(
+      "\x1b[36m%s\x1b[0m",
+      `ℹ️  Using GOOGLE_API_KEY env var instead of key from user config`,
+    );
+  }
+  if (env.OPENROUTER_API_KEY && systemFile.llm?.openrouterApiKey) {
+    console.info(
+      "\x1b[36m%s\x1b[0m",
+      `ℹ️  Using OPENROUTER_API_KEY env var instead of key from user config`,
+    );
+  }
+  if (env.MISTRAL_API_KEY && systemFile.llm?.mistralApiKey) {
+    console.info(
+      "\x1b[36m%s\x1b[0m",
+      `ℹ️  Using MISTRAL_API_KEY env var instead of key from user config`,
     );
   }
   if (env.LINGODOTDEV_API_URL) {

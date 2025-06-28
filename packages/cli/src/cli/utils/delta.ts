@@ -24,6 +24,14 @@ const LockSchema = z.object({
 });
 export type LockData = z.infer<typeof LockSchema>;
 
+export type Delta = {
+  added: string[];
+  removed: string[];
+  updated: string[];
+  renamed: [string, string][];
+  hasChanges: boolean;
+};
+
 export function createDeltaProcessor(fileKey: string) {
   const lockfilePath = path.join(process.cwd(), "i18n.lock");
   return {
@@ -34,12 +42,20 @@ export function createDeltaProcessor(fileKey: string) {
       sourceData: Record<string, any>;
       targetData: Record<string, any>;
       checksums: Record<string, string>;
-    }) {
-      let added = _.difference(Object.keys(params.sourceData), Object.keys(params.targetData));
-      let removed = _.difference(Object.keys(params.targetData), Object.keys(params.sourceData));
-      const updated = _.filter(Object.keys(params.sourceData), (key) => {
-        return md5(params.sourceData[key]) !== params.checksums[key] && params.checksums[key];
-      });
+    }): Promise<Delta> {
+      let added = _.difference(
+        Object.keys(params.sourceData),
+        Object.keys(params.targetData),
+      );
+      let removed = _.difference(
+        Object.keys(params.targetData),
+        Object.keys(params.sourceData),
+      );
+      const updated = Object.keys(params.sourceData).filter(
+        (key) =>
+          md5(params.sourceData[key]) !== params.checksums[key] &&
+          params.checksums[key],
+      );
 
       const renamed: [string, string][] = [];
       for (const addedKey of added) {
@@ -51,10 +67,19 @@ export function createDeltaProcessor(fileKey: string) {
           }
         }
       }
-      added = added.filter((key) => !renamed.some(([oldKey, newKey]) => newKey === key));
-      removed = removed.filter((key) => !renamed.some(([oldKey, newKey]) => oldKey === key));
+      added = added.filter(
+        (key) => !renamed.some(([oldKey, newKey]) => newKey === key),
+      );
+      removed = removed.filter(
+        (key) => !renamed.some(([oldKey, newKey]) => oldKey === key),
+      );
 
-      const hasChanges = [added.length > 0, removed.length > 0, updated.length > 0, renamed.length > 0].some((v) => v);
+      const hasChanges = [
+        added.length > 0,
+        removed.length > 0,
+        updated.length > 0,
+        renamed.length > 0,
+      ].some((v) => v);
 
       return {
         added,

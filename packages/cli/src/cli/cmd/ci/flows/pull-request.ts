@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { InBranchFlow } from "./in-branch";
+import { IIntegrationFlowOptions } from "./_base";
 
 export class PullRequestFlow extends InBranchFlow {
   async preRun() {
@@ -37,8 +38,11 @@ export class PullRequestFlow extends InBranchFlow {
     return true;
   }
 
-  override async run() {
-    return super.run(true);
+  override async run(options: IIntegrationFlowOptions) {
+    return super.run({
+      force: true,
+      ...options,
+    });
   }
 
   async postRun() {
@@ -52,7 +56,9 @@ export class PullRequestFlow extends InBranchFlow {
     const pullRequestNumber = await this.ensureFreshPr(this.i18nBranchName);
     // await this.createLabelIfNotExists(pullRequestNumber, 'lingo.dev/i18n', false);
     this.ora.succeed(
-      `Pull request ready: ${this.platformKit.buildPullRequestUrl(pullRequestNumber)}`,
+      `Pull request ready: ${this.platformKit.buildPullRequestUrl(
+        pullRequestNumber,
+      )}`,
     );
   }
 

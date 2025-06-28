@@ -2,12 +2,13 @@ import chalk from "chalk";
 import { Listr, ListrTask } from "listr2";
 import pLimit, { LimitFunction } from "p-limit";
 import _ from "lodash";
+import { minimatch } from "minimatch";
 
 import { colors } from "../../constants";
 import { CmdRunContext, CmdRunTask, CmdRunTaskResult } from "./_types";
 import { commonTaskRendererOptions } from "./_const";
 import createBucketLoader from "../../loaders";
-import { createDeltaProcessor } from "../../utils/delta";
+import { createDeltaProcessor, Delta } from "../../utils/delta";
 
 const MAX_WORKER_COUNT = 10;
 
@@ -24,11 +25,15 @@ export default async function execute(input: CmdRunContext) {
       {
         title: "Initializing localization engine",
         task: async (ctx, task) => {
-          task.title = `Localization engine ${chalk.hex(colors.green)("ready")} (${ctx.localizer!.id})`;
+          task.title = `Localization engine ${chalk.hex(colors.green)(
+            "ready",
+          )} (${ctx.localizer!.id})`;
         },
       },
       {
-        title: `Processing localization tasks ${chalk.dim(`(tasks: ${input.tasks.length}, concurrency: ${effectiveConcurrency})`)}`,
+        title: `Processing localization tasks ${chalk.dim(
+          `(tasks: ${input.tasks.length}, concurrency: ${effectiveConcurrency})`,
+        )}`,
         task: (ctx, task) => {
           if (input.tasks.length < 1) {
             task.title = `Skipping, nothing to localize.`;
@@ -84,11 +89,11 @@ function createWorkerStatusMessage(args: {
     "[locale]",
     args.assignedTask.targetLocale,
   );
-  return `[${chalk.hex(colors.yellow)(`${args.percentage}%`)}] Processing: ${chalk.dim(
-    displayPath,
-  )} (${chalk.hex(colors.yellow)(args.assignedTask.sourceLocale)} -> ${chalk.hex(
-    colors.yellow,
-  )(args.assignedTask.targetLocale)})`;
+  return `[${chalk.hex(colors.yellow)(
+    `${args.percentage}%`,
+  )}] Processing: ${chalk.dim(displayPath)} (${chalk.hex(colors.yellow)(
+    args.assignedTask.sourceLocale,
+  )} -> ${chalk.hex(colors.yellow)(args.assignedTask.targetLocale)})`;
 }
 
 function createExecutionProgressMessage(ctx: CmdRunContext) {
@@ -105,7 +110,11 @@ function createExecutionProgressMessage(ctx: CmdRunContext) {
     (_t, result) => result.status === "skipped",
   );
 
-  return `Processed ${chalk.green(succeededTasksCount)}/${ctx.tasks.length}, Failed ${chalk.red(failedTasksCount)}, Skipped ${chalk.dim(skippedTasksCount)}`;
+  return `Processed ${chalk.green(succeededTasksCount)}/${
+    ctx.tasks.length
+  }, Failed ${chalk.red(failedTasksCount)}, Skipped ${chalk.dim(
+    skippedTasksCount,
+  )}`;
 }
 
 function createLoaderForTask(assignedTask: CmdRunTask) {
@@ -114,7 +123,6 @@ function createLoaderForTask(assignedTask: CmdRunTask) {
     assignedTask.bucketPathPattern,
     {
       defaultLocale: assignedTask.sourceLocale,
-      isCacheRestore: false,
       injectLocale: assignedTask.injectLocale,
     },
     assignedTask.lockedKeys,
@@ -168,10 +176,21 @@ function createWorkerTask(args: {
                   delta.updated.includes(key) ||
                   !!args.ctx.flags.force,
               )
+              .filter(
+                ([key]) =>
+                  !assignedTask.onlyKeys.length ||
+                  assignedTask.onlyKeys?.some((pattern) =>
+                    minimatch(key, pattern),
+                  ),
+              )
               .fromPairs()
               .value();
 
             if (!Object.keys(processableData).length) {
+              await args.ioLimiter(async () => {
+                // re-push in case some of the unlocalizable / meta data changed
+                await bucketLoader.push(assignedTask.targetLocale, targetData);
+              });
               return { status: "skipped" } satisfies CmdRunTaskResult;
             }
 
@@ -183,7 +202,33 @@ function createWorkerTask(args: {
                 targetData,
                 processableData,
               },
-              (progress) => {
+              async (progress, _sourceChunk, processedChunk) => {
+                // write translated chunks as they are received from LLM
+                await args.ioLimiter(async () => {
+                  // pull the latest source data before pushing for buckets that store all locales in a single file
+                  await bucketLoader.pull(assignedTask.sourceLocale);
+                  // pull the latest target data to include all already processed chunks
+                  const latestTargetData = await bucketLoader.pull(
+                    assignedTask.targetLocale,
+                  );
+                  // add the new chunk to target data
+                  const _partialData = _.merge(
+                    {},
+                    latestTargetData,
+                    processedChunk,
+                  );
+                  // process renamed keys
+                  const finalChunkTargetData = processRenamedKeys(
+                    delta,
+                    _partialData,
+                  );
+                  // push final chunk to the target locale
+                  await bucketLoader.push(
+                    assignedTask.targetLocale,
+                    finalChunkTargetData,
+                  );
+                });
+
                 subTask.title = createWorkerStatusMessage({
                   assignedTask,
                   percentage: progress,
@@ -191,32 +236,24 @@ function createWorkerTask(args: {
               },
             );
 
-            let finalTargetData = _.merge(
+            const finalTargetData = _.merge(
               {},
               sourceData,
               targetData,
               processedTargetData,
             );
-
-            finalTargetData = _.chain(finalTargetData)
-              .entries()
-              .map(([key, value]) => {
-                const renaming = delta.renamed.find(
-                  ([oldKey]) => oldKey === key,
-                );
-                if (!renaming) {
-                  return [key, value];
-                }
-                return [renaming[1], value];
-              })
-              .fromPairs()
-              .value();
+            const finalRenamedTargetData = processRenamedKeys(
+              delta,
+              finalTargetData,
+            );
 
             await args.ioLimiter(async () => {
+              // not all localizers have progress callback (eg. explicit localizer),
+              // the final target data might not be pushed yet - push now to ensure it's up to date
               await bucketLoader.pull(assignedTask.sourceLocale);
               await bucketLoader.push(
                 assignedTask.targetLocale,
-                finalTargetData,
+                finalRenamedTargetData,
               );
 
               const checksums =
@@ -248,4 +285,18 @@ function countTasks(
   return Array.from(ctx.results.entries()).filter(([task, result]) =>
     predicate(task, result),
   ).length;
+}
+
+function processRenamedKeys(delta: Delta, targetData: Record<string, string>) {
+  return _.chain(targetData)
+    .entries()
+    .map(([key, value]) => {
+      const renaming = delta.renamed.find(([oldKey]) => oldKey === key);
+      if (!renaming) {
+        return [key, value];
+      }
+      return [renaming[1], value];
+    })
+    .fromPairs()
+    .value();
 }

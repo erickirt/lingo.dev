@@ -1,22 +1,20 @@
-> [!NOTE]
-> **Lingo.dev Compilerの紹介** - ビルド時にコンポーネントを変更せずにReactアプリを多言語対応にします。[ドキュメントを読む](https://lingo.dev/compiler)。
-
 <p align="center">
-  <a href="https://lingo.dev/compiler">
+  <a href="https://lingo.dev">
     <img src="https://raw.githubusercontent.com/lingodotdev/lingo.dev/main/content/banner.compiler.png" width="100%" alt="Lingo.dev" />
   </a>
 </p>
 
 <p align="center">
-  <strong>⚡️ ウェブ＆モバイルローカリゼーション向けAI駆動オープンソースツール。</strong>
+  <strong>⚡ Lingo.dev - オープンソース、AI駆動のi18nツールキットでLLMによる即時ローカライゼーションを実現。</strong>
 </p>
 
 <br />
 
 <p align="center">
+  <a href="https://lingo.dev/compiler">Lingo.dev コンパイラ</a> •
   <a href="https://lingo.dev/cli">Lingo.dev CLI</a> •
   <a href="https://lingo.dev/ci">Lingo.dev CI/CD</a> •
-  <a href="https://lingo.dev/compiler">Lingo.dev Compiler 🆕</a>
+  <a href="https://lingo.dev/sdk">Lingo.dev SDK</a>
 </p>
 
 <p align="center">
@@ -31,59 +29,139 @@
   </a>
 </p>
 
-<br />
+---
 
-Lingo.devは、ウェブ、モバイルアプリ、マークダウンコンテンツのローカリゼーションと翻訳にLLMを活用するためのオープンソースi18nツールキットです。
+## コンパイラの紹介 🆕
 
-Lingo.devには以下が含まれます：
+**Lingo.dev コンパイラ**は、既存の React コンポーネントに変更を加えることなく、ビルド時に React アプリを多言語対応にするための無料のオープンソースコンパイラミドルウェアです。
 
-1. **Lingo.dev CLI** - アプリやマークダウンコンテンツを高速かつ正確に翻訳するために構築されたCLIツール。[ドキュメント](https://lingo.dev/cli)
-1. **Lingo.dev CI/CD** - 新しいコンテンツが追加されるとすぐに自動的に翻訳を最新の状態に保つためのGitHub、GitLab、BitbucketのCI/CD統合。[ドキュメント](https://lingo.dev/ci)
-1. **Lingo.dev Compiler 🆕** - 既存のコンポーネントを変更することなく、ビルド時にReactアプリを多言語対応にします。[ドキュメント](https://lingo.dev/compiler)
+一度インストール:
 
-すべてのツールは、正確な翻訳とローカリゼーションのためにLLMモデルを活用し、手作業を排除するように設計されています。
+```bash
+npm install lingo.dev
+```
 
-## Lingo.dev Compilerデモ
+ビルド設定で有効化:
 
-Lingo.dev Compilerの動作を確認してください：
+```js
+import lingoCompiler from "lingo.dev/compiler";
 
-[![Lingo.dev Compilerデモ](https://img.youtube.com/vi/sSo2ERxAvB4/0.jpg)](https://youtu.be/sSo2ERxAvB4)
+const existingNextConfig = {};
 
-Lingo.dev Compilerは、既存のコンポーネントを変更することなく、ビルド時にReactアプリを多言語対応にします。
+export default lingoCompiler.next({
+  sourceLocale: "en",
+  targetLocales: ["es", "fr"],
+})(existingNextConfig);
+```
 
-コンパイラを実行するだけで、既存のLLM APIキーを使用して、アプリが自動的に複数の言語をサポートします。
+`next build` を実行すると、スペイン語とフランス語のバンドルが自動的に生成されます ✨
 
-デモを見た後、詳細については[ドキュメント](https://lingo.dev/compiler)をご確認ください。
+[ドキュメントを読む →](https://lingo.dev/compiler) で完全ガイドを確認し、[Discord に参加](https://lingo.dev/go/discord) してセットアップのサポートを受けましょう。
+
+---
+
+### このリポジトリには何が含まれていますか？
+
+| ツール       | 要約                                                                                   | ドキュメント                            |
+| ------------ | -------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Compiler** | ビルド時の React ローカライゼーション                                                  | [/compiler](https://lingo.dev/compiler) |
+| **CLI**      | ウェブ・モバイルアプリ、JSON、YAML、マークダウンなどのワンコマンドローカライゼーション | [/cli](https://lingo.dev/cli)           |
+| **CI/CD**    | プッシュごとに翻訳を自動コミット + 必要に応じてプルリクエストを作成                    | [/ci](https://lingo.dev/ci)             |
+| **SDK**      | ユーザー生成コンテンツのリアルタイム翻訳                                               | [/sdk](https://lingo.dev/sdk)           |
+
+以下は各ツールの概要です 👇
+
+---
+
+### ⚡️ Lingo.dev CLI
+
+ターミナルから直接コードとコンテンツを翻訳。
+
+```bash
+npx lingo.dev@latest run
+```
+
+各文字列にフィンガープリントを付け、結果をキャッシュし、変更された部分のみを再翻訳します。
+
+[ドキュメントに従う →](https://lingo.dev/cli) でセットアップ方法を学びましょう。
+
+---
+
+### 🔄 Lingo.dev CI/CD
+
+完璧な翻訳を自動的に提供。
+
+```yaml
+# .github/workflows/i18n.yml
+name: Lingo.dev i18n
+on: [push]
+
+jobs:
+  i18n:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lingodotdev/lingo.dev@main
+        with:
+          api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
+```
+
+手動操作なしでリポジトリを常に最新状態に保ち、製品の多言語対応を維持します。
+
+[ドキュメントを読む →](https://lingo.dev/ci)
+
+---
+
+### 🧩 Lingo.dev SDK
+
+動的コンテンツのためのリクエストごとの即時翻訳。
+
+```ts
+import { LingoDotDevEngine } from "lingo.dev/sdk";
+
+const lingoDotDev = new LingoDotDevEngine({
+  apiKey: "your-api-key-here",
+});
+
+const content = {
+  greeting: "Hello",
+  farewell: "Goodbye",
+  message: "Welcome to our platform",
+};
+
+const translated = await lingoDotDev.localizeObject(content, {
+  sourceLocale: "en",
+  targetLocale: "es",
+});
+// Returns: { greeting: "Hola", farewell: "Adiós", message: "Bienvenido a nuestra plataforma" }
+```
+
+チャット、ユーザーコメント、その他のリアルタイムフローに最適です。
+
+[ドキュメントを読む →](https://lingo.dev/sdk)
+
+---
 
 ## 🤝 コミュニティ
 
-Lingo.devはコミュニティ主導のプロジェクトですので、あらゆる貢献を歓迎します！
+私たちはコミュニティ主導であり、貢献を歓迎します！
 
-新機能のアイデアがありますか？GitHubイシューを作成してください！
+- アイデアがありますか？ [イシューを開く](https://github.com/lingodotdev/lingo.dev/issues)
+- 何かを修正したいですか？ [PR を送信](https://github.com/lingodotdev/lingo.dev/pulls)
+- サポートが必要ですか？ [Discord に参加](https://lingo.dev/go/discord)
 
-貢献したいですか？プルリクエストを作成してください！
+## ⭐ スター履歴
 
-アイデアについて議論したり、サポートが必要ですか？[Discordに参加してください！](https://lingo.dev/go/discord)
+私たちの取り組みが気に入ったら、⭐ をつけて 3,000 スター達成を手伝ってください！🌟
 
-## スター履歴
+[
 
-私たちの取り組みが気に入っていただけたら、3,000スターを達成するために⭐️をつけることをご検討ください！🌟
+![スター履歴チャート](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)
 
-[![スター履歴チャート](https://api.star-history.com/svg?repos=lingodotdev/lingo.dev&type=Date)](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
+](https://www.star-history.com/#lingodotdev/lingo.dev&Date)
 
-## 🌐 他言語のREADME
+## 🌐 他言語の README
 
-- [英語](https://github.com/lingodotdev/lingo.dev)
-- [中国語](/readme/zh-Hans.md)
-- [日本語](/readme/ja.md)
-- [韓国語](/readme/ko.md)
-- [スペイン語](/readme/es.md)
-- [フランス語](/readme/fr.md)
-- [ロシア語](/readme/ru.md)
-- [ドイツ語](/readme/de.md)
-- [イタリア語](/readme/it.md)
-- [アラビア語](/readme/ar.md)
-- [ヒンディー語](/readme/hi.md)
-- [ベンガル語](/readme/bn.md)
+[English](https://github.com/lingodotdev/lingo.dev) • [中文](/readme/zh-Hans.md) • [日本語](/readme/ja.md) • [한국어](/readme/ko.md) • [Español](/readme/es.md) • [Français](/readme/fr.md) • [Русский](/readme/ru.md) • [Deutsch](/readme/de.md) • [Italiano](/readme/it.md) • [العربية](/readme/ar.md) • [हिन्दी](/readme/hi.md) • [বাংলা](/readme/bn.md) • [فارسی](/readme/fa.md)
 
-お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加してPRを開いてください！
+あなたの言語が見つかりませんか？[`i18n.json`](./i18n.json)に追加して PR を開いてください！

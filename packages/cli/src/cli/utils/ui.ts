@@ -2,8 +2,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import { vice } from "gradient-string";
 import readline from "readline";
-import { colors } from "../../constants";
-import { CmdRunContext } from "./_types";
+import { colors } from "../constants";
 
 export async function renderClear() {
   console.log("\x1Bc");
@@ -27,7 +26,9 @@ export async function renderBanner() {
 
 export async function renderHero() {
   console.log(
-    `⚡️ ${chalk.hex(colors.green)("Lingo.dev")} - open-source, AI-powered i18n CLI for web & mobile localization.`,
+    `⚡️ ${chalk.hex(colors.green)(
+      "Lingo.dev",
+    )} - open-source, AI-powered i18n CLI for web & mobile localization.`,
   );
   console.log("");
 
@@ -37,20 +38,20 @@ export async function renderHero() {
   const maxLabelWidth = 17; // Approximate visual width accounting for emoji
 
   console.log(
-    `${chalk.hex(colors.blue)(label1.padEnd(maxLabelWidth))} ${chalk.hex(colors.blue)("https://lingo.dev/go/gh")}`,
+    `${chalk.hex(colors.blue)(label1.padEnd(maxLabelWidth))} ${chalk.hex(
+      colors.blue,
+    )("https://lingo.dev/go/gh")}`,
   );
   console.log(
-    `${chalk.hex(colors.blue)(label2.padEnd(maxLabelWidth + 1))} ${chalk.hex(colors.blue)("https://lingo.dev/go/docs")}`,
+    `${chalk.hex(colors.blue)(label2.padEnd(maxLabelWidth + 1))} ${chalk.hex(
+      colors.blue,
+    )("https://lingo.dev/go/docs")}`,
   ); // Docs emoji seems narrower
   console.log(
-    `${chalk.hex(colors.blue)(label3.padEnd(maxLabelWidth + 1))} ${chalk.hex(colors.blue)("hi@lingo.dev")}`,
+    `${chalk.hex(colors.blue)(label3.padEnd(maxLabelWidth + 1))} ${chalk.hex(
+      colors.blue,
+    )("hi@lingo.dev")}`,
   );
-}
-
-export async function pauseIfDebug(debug: boolean) {
-  if (debug) {
-    await waitForUserPrompt("Press Enter to continue...");
-  }
 }
 
 export async function waitForUserPrompt(message: string): Promise<void> {
@@ -67,20 +68,26 @@ export async function waitForUserPrompt(message: string): Promise<void> {
   });
 }
 
-export async function renderSummary(ctx: CmdRunContext) {
+export async function pauseIfDebug(debug: boolean) {
+  if (debug) {
+    await waitForUserPrompt("Press Enter to continue...");
+  }
+}
+
+export async function renderSummary(results: Map<any, any>) {
   console.log(chalk.hex(colors.green)("[Done]"));
 
-  const skippedTasksCount = Array.from(ctx.results.values()).filter(
+  const skippedTasksCount = Array.from(results.values()).filter(
     (r) => r.status === "skipped",
   ).length;
   console.log(`• ${chalk.hex(colors.yellow)(skippedTasksCount)} from cache`);
 
-  const succeededTasksCount = Array.from(ctx.results.values()).filter(
+  const succeededTasksCount = Array.from(results.values()).filter(
     (r) => r.status === "success",
   ).length;
   console.log(`• ${chalk.hex(colors.yellow)(succeededTasksCount)} processed`);
 
-  const failedTasksCount = Array.from(ctx.results.values()).filter(
+  const failedTasksCount = Array.from(results.values()).filter(
     (r) => r.status === "error",
   ).length;
   console.log(`• ${chalk.hex(colors.yellow)(failedTasksCount)} failed`);
