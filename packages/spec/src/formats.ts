@@ -3,6 +3,7 @@ import Z from "zod";
 export const bucketTypes = [
   "android",
   "csv",
+  "ejs",
   "flutter",
   "html",
   "json",
@@ -25,6 +26,7 @@ export const bucketTypes = [
   "po",
   "vue-json",
   "typescript",
+  "txt",
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

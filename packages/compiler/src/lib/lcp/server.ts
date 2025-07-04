@@ -8,58 +8,65 @@ import _ from "lodash";
 import { LCPCache } from "./cache";
 import { LCPAPI } from "./api";
 
-export type LCPServerParams = {
+type LCPServerBaseParams = {
   lcp: LCPSchema;
   sourceLocale: string;
-  targetLocales: string[];
   sourceRoot: string;
   lingoDir: string;
-  models: Record<string, string>;
+  models: "lingo.dev" | Record<string, string>;
+  prompt?: string | null;
 };
 
-export type LCPServerParamsForLocale = {
-  lcp: LCPSchema;
-  sourceLocale: string;
+export type LCPServerParams = LCPServerBaseParams & {
+  targetLocales: string[];
+};
+
+export type LCPServerParamsForLocale = LCPServerBaseParams & {
   targetLocale: string;
-  sourceRoot: string;
-  lingoDir: string;
-  models: Record<string, string>;
 };
 
 export class LCPServer {
-  private static isLoading = false;
+  private static inFlightPromise: Promise<
+    Record<string, DictionarySchema>
+  > | null = null;
 
   static async loadDictionaries(
     params: LCPServerParams,
   ): Promise<Record<string, DictionarySchema>> {
-    while (this.isLoading) {
-      await new Promise(function (resolve) {
-        setTimeout(resolve, 500);
-      });
+    // If a load is already in progress, await it
+    if (this.inFlightPromise) {
+      return this.inFlightPromise;
     }
 
-    this.isLoading = true;
+    // Otherwise start a new load restricted by the limiter
+    this.inFlightPromise = (async () => {
+      try {
+        const targetLocales = _.uniq([
+          ...params.targetLocales,
+          params.sourceLocale,
+        ]);
 
-    const targetLocales = _.uniq([
-      ...params.targetLocales,
-      params.sourceLocale,
-    ]);
-    const dictionaries = await Promise.all(
-      targetLocales.map((targetLocale) =>
-        this.loadDictionaryForLocale({ ...params, targetLocale }),
-      ),
-    );
+        const dictionaries = await Promise.all(
+          targetLocales.map((targetLocale) =>
+            this.loadDictionaryForLocale({ ...params, targetLocale }),
+          ),
+        );
 
-    const result = _.fromPairs(
-      targetLocales.map((targetLocale, index) => [
-        targetLocale,
-        dictionaries[index],
-      ]),
-    );
+        const result = _.fromPairs(
+          targetLocales.map((targetLocale, index) => [
+            targetLocale,
+            dictionaries[index],
+          ]),
+        );
 
-    this.isLoading = false;
+        return result;
+      } finally {
+        // Clear inFlightPromise regardless of success/failure
+        this.inFlightPromise = null;
+      }
+    })();
 
-    return result;
+    return this.inFlightPromise;
   }
 
   static async loadDictionaryForLocale(
@@ -111,10 +118,16 @@ export class LCPServer {
         uncachedSourceDictionary,
         params.sourceLocale,
         params.targetLocale,
+        params.prompt,
       );
 
       // we merge new translations with cache, so that we can cache empty strings
       targetDictionary = this._mergeDictionaries(newTranslations, cache);
+      // ensure the locale metadata reflects the target locale
+      targetDictionary = {
+        ...targetDictionary,
+        locale: params.targetLocale,
+      };
       await LCPCache.writeLocaleDictionary(targetDictionary, cacheParams);
     }
 
@@ -266,13 +279,16 @@ export class LCPServer {
         const sourceFile = _.get(sourceDictionary.files, fileName);
         const targetFile = _.get(targetDictionary.files, fileName);
         const entries = removeEmptyEntries
-          ? _.pickBy(sourceFile?.entries, (value) => value.trim().length > 0)
-          : sourceFile?.entries;
+          ? _.pickBy(
+              sourceFile?.entries || {},
+              (value) => String(value || "")?.trim?.()?.length > 0,
+            )
+          : sourceFile?.entries || {};
         return [
           fileName,
           {
             ...targetFile,
-            entries: _.merge(targetFile?.entries, entries),
+            entries: _.merge({}, targetFile?.entries || {}, entries),
           },
         ];
       })

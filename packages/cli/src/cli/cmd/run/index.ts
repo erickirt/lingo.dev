@@ -2,6 +2,7 @@ import { Command } from "interactive-commander";
 import setup from "./setup";
 import plan from "./plan";
 import execute from "./execute";
+import watch from "./watch";
 import { CmdRunContext, flagsSchema } from "./_types";
 import {
   renderClear,
@@ -10,15 +11,22 @@ import {
   renderHero,
   pauseIfDebug,
   renderSummary,
-} from "./_render";
+} from "../../utils/ui";
+import chalk from "chalk";
+import trackEvent from "../../utils/observability";
+import { determineAuthId } from "./_utils";
 
 export default new Command()
   .command("run")
   .description("Run Lingo.dev localization engine")
   .helpOption("-h, --help", "Show help")
   .option(
-    "--locale <locale>",
-    "Locale to process",
+    "--source-locale <source-locale>",
+    "Locale to use as source locale. Defaults to i18n.json locale.source",
+  )
+  .option(
+    "--target-locale <target-locale>",
+    "Locale to use as target locale. Defaults to i18n.json locale.targets",
     (val: string, prev: string[]) => (prev ? [...prev, val] : [val]),
   )
   .option(
@@ -28,12 +36,12 @@ export default new Command()
   )
   .option(
     "--file <file>",
-    "File to process. Process only files that include this string in their path. Useful if you have a lot of files and want to focus on a specific one. Specify more files separated by commas or spaces.",
+    "File to process. Process only files that match this glob pattern in their path. Use quotes around patterns to prevent shell expansion (e.g., --file '**/*.json'). Useful if you have a lot of files and want to focus on a specific one. Specify more files separated by commas or spaces. Accepts glob patterns.",
     (val: string, prev: string[]) => (prev ? [...prev, val] : [val]),
   )
   .option(
     "--key <key>",
-    "Key to process. Process only a specific translation key, useful for updating a single entry",
+    "Key to process. Process only a specific translation key, useful for updating a single entry. Accepts glob patterns.",
     (val: string, prev: string[]) => (prev ? [...prev, val] : [val]),
   )
   .option(
@@ -53,7 +61,17 @@ export default new Command()
     "Number of concurrent tasks to run",
     (val: string) => parseInt(val),
   )
+  .option(
+    "--watch",
+    "Watch source files for changes and automatically retranslate",
+  )
+  .option(
+    "--debounce <milliseconds>",
+    "Debounce delay in milliseconds for watch mode (default: 5000ms)",
+    (val: string) => parseInt(val),
+  )
   .action(async (args) => {
+    let authId: string | null = null;
     try {
       const ctx: CmdRunContext = {
         flags: flagsSchema.parse(args),
@@ -71,6 +89,14 @@ export default new Command()
       await renderSpacer();
 
       await setup(ctx);
+
+      authId = await determineAuthId(ctx);
+
+      trackEvent(authId, "cmd.run.start", {
+        config: ctx.config,
+        flags: ctx.flags,
+      });
+
       await renderSpacer();
 
       await plan(ctx);
@@ -79,9 +105,20 @@ export default new Command()
       await execute(ctx);
       await renderSpacer();
 
-      await renderSummary(ctx);
+      await renderSummary(ctx.results);
       await renderSpacer();
+
+      // If watch mode is enabled, start watching for changes
+      if (ctx.flags.watch) {
+        await watch(ctx);
+      }
+
+      trackEvent(authId, "cmd.run.success", {
+        config: ctx.config,
+        flags: ctx.flags,
+      });
     } catch (error: any) {
+      trackEvent(authId || "unknown", "cmd.run.error", {});
       process.exit(1);
     }
   });

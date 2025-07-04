@@ -1,5 +1,56 @@
 # @lingo.dev/\_spec
 
+## 0.39.1
+
+### Patch Changes
+
+- [#995](https://github.com/lingodotdev/lingo.dev/pull/995) [`acd5356`](https://github.com/lingodotdev/lingo.dev/commit/acd5356b68d2261576240c173fea790864c3c31d) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Add Icelandic (is) locale support with is-IS regional variant
+
+## 0.39.0
+
+### Minor Changes
+
+- [#981](https://github.com/lingodotdev/lingo.dev/pull/981) [`f644123`](https://github.com/lingodotdev/lingo.dev/commit/f644123ddf6a6254790d08af50141e4dd78c3677) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Add support for plain TXT files to enable translation of fastlane App Store metadata and other plain text content
+
+## 0.38.0
+
+### Minor Changes
+
+- [#958](https://github.com/lingodotdev/lingo.dev/pull/958) [`84fd214`](https://github.com/lingodotdev/lingo.dev/commit/84fd214a21766e7683c5d645fcb8c4c0162eb0b6) Thanks [@chrissiwaffler](https://github.com/chrissiwaffler)! - feat: add Mistral AI as a supported LLM provider
+
+  - Added Mistral AI provider support across the entire lingo.dev ecosystem
+  - Users can now use Mistral models for localization by setting MISTRAL_API_KEY
+  - Supports all Mistral models available through the @ai-sdk/mistral package
+  - Configuration via environment variable or user-wide config: `npx lingo.dev@latest config set llm.mistralApiKey <key>`
+
+## 0.37.0
+
+### Minor Changes
+
+- [#956](https://github.com/lingodotdev/lingo.dev/pull/956) [`ce8c75c`](https://github.com/lingodotdev/lingo.dev/commit/ce8c75c7fc1a2124d3e18444bc356c4dfce26434) Thanks [@VAIBHAVSING](https://github.com/VAIBHAVSING)! - feat: add EJS (Embedded JavaScript) templating engine support
+
+  - Added EJS loader to support parsing and translating EJS template files
+  - EJS loader extracts translatable text while preserving EJS tags and expressions
+  - Updated spec package to include "ejs" in supported bucket types
+  - Added comprehensive test suite covering various EJS scenarios including conditionals, loops, includes, and mixed content
+  - Automatically installed EJS dependency (@types/ejs) for TypeScript support
+
+## 0.36.0
+
+### Minor Changes
+
+- [#913](https://github.com/lingodotdev/lingo.dev/pull/913) [`1b9b113`](https://github.com/lingodotdev/lingo.dev/commit/1b9b11301978e8caa2555832d027ff93216aa6e1) Thanks [@The-Best-Codes](https://github.com/The-Best-Codes)! - Add support for Ollama as a CLI and Compiler provider.
+
+### Patch Changes
+
+- [#922](https://github.com/lingodotdev/lingo.dev/pull/922) [`0329a9c`](https://github.com/lingodotdev/lingo.dev/commit/0329a9cdb5e5a63fcecab4efcd7cce22f155a0e9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add openrouter ais support for compiler
+
+## 0.35.0
+
+### Minor Changes
+
+- [#897](https://github.com/lingodotdev/lingo.dev/pull/897) [`a5da697`](https://github.com/lingodotdev/lingo.dev/commit/a5da697f7efd46de31d17b202d06eb5f655ed9b9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add support for other providers in the compiler and implement Google AI as a provider.
+
 ## 0.34.0
 
 ### Minor Changes

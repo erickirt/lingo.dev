@@ -1,5 +1,453 @@
 # lingo.dev
 
+## 0.105.3
+
+### Patch Changes
+
+- [#1002](https://github.com/lingodotdev/lingo.dev/pull/1002) [`2b297ba`](https://github.com/lingodotdev/lingo.dev/commit/2b297babe76f9799c5154d9421fecd1ebbe1bb72) Thanks [@mathio](https://github.com/mathio)! - support custom prompts in compiler
+
+- Updated dependencies [[`2b297ba`](https://github.com/lingodotdev/lingo.dev/commit/2b297babe76f9799c5154d9421fecd1ebbe1bb72)]:
+  - @lingo.dev/_compiler@0.5.4
+
+## 0.105.2
+
+### Patch Changes
+
+- [#1000](https://github.com/lingodotdev/lingo.dev/pull/1000) [`30faa6d`](https://github.com/lingodotdev/lingo.dev/commit/30faa6d10e851a38ced86ae403b3a1fd48440bca) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - xliff 1.2 implementation
+
+## 0.105.1
+
+### Patch Changes
+
+- Updated dependencies [[`acd5356`](https://github.com/lingodotdev/lingo.dev/commit/acd5356b68d2261576240c173fea790864c3c31d)]:
+  - @lingo.dev/_spec@0.39.1
+  - @lingo.dev/_sdk@0.9.6
+  - @lingo.dev/_compiler@0.5.3
+
+## 0.105.0
+
+### Minor Changes
+
+- [#992](https://github.com/lingodotdev/lingo.dev/pull/992) [`4e9e368`](https://github.com/lingodotdev/lingo.dev/commit/4e9e36830ee4277ef9d65eee9ee92380a95a622c) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - feat: skip lockfile updates when --target-locale or --locale flags are provided explicitly
+
+## 0.104.0
+
+### Minor Changes
+
+- [#986](https://github.com/lingodotdev/lingo.dev/pull/986) [`65701e5`](https://github.com/lingodotdev/lingo.dev/commit/65701e5b9694e811587ef600227251a1ff1384a0) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Add glob pattern matching support to --file argument using minimatch library
+
+### Patch Changes
+
+- [#988](https://github.com/lingodotdev/lingo.dev/pull/988) [`4e55355`](https://github.com/lingodotdev/lingo.dev/commit/4e5535535029743b7a0edc4fdab3d4ee71374035) Thanks [@mathio](https://github.com/mathio)! - o11y
+
+## 0.103.0
+
+### Minor Changes
+
+- [#981](https://github.com/lingodotdev/lingo.dev/pull/981) [`f644123`](https://github.com/lingodotdev/lingo.dev/commit/f644123ddf6a6254790d08af50141e4dd78c3677) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Add support for plain TXT files to enable translation of fastlane App Store metadata and other plain text content
+
+### Patch Changes
+
+- Updated dependencies [[`f644123`](https://github.com/lingodotdev/lingo.dev/commit/f644123ddf6a6254790d08af50141e4dd78c3677)]:
+  - @lingo.dev/_spec@0.39.0
+  - @lingo.dev/_sdk@0.9.5
+  - @lingo.dev/_compiler@0.5.2
+
+## 0.102.4
+
+### Patch Changes
+
+- [#982](https://github.com/lingodotdev/lingo.dev/pull/982) [`29cf6a7`](https://github.com/lingodotdev/lingo.dev/commit/29cf6a7359707e0e341c11942d1ce6dedf7e66e5) Thanks [@mathio](https://github.com/mathio)! - fix xcstrings version
+
+## 0.102.3
+
+### Patch Changes
+
+- [#972](https://github.com/lingodotdev/lingo.dev/pull/972) [`b249484`](https://github.com/lingodotdev/lingo.dev/commit/b249484d6f0060e29cd5b50b3d8ce68b857ccad5) Thanks [@mathio](https://github.com/mathio)! - support components with dot in name
+
+- Updated dependencies [[`b249484`](https://github.com/lingodotdev/lingo.dev/commit/b249484d6f0060e29cd5b50b3d8ce68b857ccad5)]:
+  - @lingo.dev/_compiler@0.5.1
+
+## 0.102.2
+
+### Patch Changes
+
+- [#946](https://github.com/lingodotdev/lingo.dev/pull/946) [`f7debef`](https://github.com/lingodotdev/lingo.dev/commit/f7debef9f004e670bb1f6a45ae17067a72a6e53f) Thanks [@scm1400](https://github.com/scm1400)! - normalize paths and improve compatibility on windows
+
+## 0.102.1
+
+### Patch Changes
+
+- [#969](https://github.com/lingodotdev/lingo.dev/pull/969) [`da6f0c8`](https://github.com/lingodotdev/lingo.dev/commit/da6f0c85e69687615df943323d261078742ba3f2) Thanks [@mathio](https://github.com/mathio)! - run: always push to target locales
+
+## 0.102.0
+
+### Minor Changes
+
+- [#966](https://github.com/lingodotdev/lingo.dev/pull/966) [`8b306bc`](https://github.com/lingodotdev/lingo.dev/commit/8b306bcd0a3231ffd8bde283414b6d069b7a5b99) Thanks [@VAIBHAVSING](https://github.com/VAIBHAVSING)! - Add watch mode to CLI for automatic retranslation on file changes
+
+  This release introduces a new watch mode feature that automatically triggers retranslation when changes are detected in source files:
+
+  - **New `--watch` flag**: Enables file watching mode that monitors source files for changes
+  - **New `--debounce` flag**: Configurable debounce delay (default: 5 seconds) to prevent excessive retranslations
+  - **Intelligent file pattern detection**: Automatically determines which files to watch based on i18n.json bucket configurations
+  - **Graceful error handling**: Robust error recovery and process management
+  - **Background operation**: Non-blocking watch mode with proper cleanup on exit (Ctrl+C)
+
+  **Usage:**
+
+  ```bash
+  # Enable watch mode with default 5-second debounce
+  lingo.dev run --watch
+
+  # Enable watch mode with custom debounce timing
+  lingo.dev run --watch --debounce 7000
+
+  # Combine with other flags
+  lingo.dev run --watch --target-locale es --bucket json
+  ```
+
+  **Technical Implementation:**
+
+  - Uses `chokidar` for robust cross-platform file watching
+  - Integrates seamlessly with existing CLI pipeline (setup → plan → execute)
+  - Maintains full compatibility with all existing CLI options and workflows
+  - Includes comprehensive documentation in `WATCH_MODE.md`
+
+  This feature significantly improves developer experience by eliminating the need to manually retrigger translations during development.
+
+### Patch Changes
+
+- [#968](https://github.com/lingodotdev/lingo.dev/pull/968) [`013fca0`](https://github.com/lingodotdev/lingo.dev/commit/013fca0f4252103ee3009fe3cdcfce2a87c80058) Thanks [@mathio](https://github.com/mathio)! - reorder falsy keys
+
+## 0.101.0
+
+### Minor Changes
+
+- [#958](https://github.com/lingodotdev/lingo.dev/pull/958) [`84fd214`](https://github.com/lingodotdev/lingo.dev/commit/84fd214a21766e7683c5d645fcb8c4c0162eb0b6) Thanks [@chrissiwaffler](https://github.com/chrissiwaffler)! - feat: add Mistral AI as a supported LLM provider
+
+  - Added Mistral AI provider support across the entire lingo.dev ecosystem
+  - Users can now use Mistral models for localization by setting MISTRAL_API_KEY
+  - Supports all Mistral models available through the @ai-sdk/mistral package
+  - Configuration via environment variable or user-wide config: `npx lingo.dev@latest config set llm.mistralApiKey <key>`
+
+### Patch Changes
+
+- [#962](https://github.com/lingodotdev/lingo.dev/pull/962) [`0fc6385`](https://github.com/lingodotdev/lingo.dev/commit/0fc63856c6f49ac68a220b6e2f1c4f060e7ce78e) Thanks [@mathio](https://github.com/mathio)! - format with prettier, add prettier check for PRs
+
+- [#955](https://github.com/lingodotdev/lingo.dev/pull/955) [`cac5429`](https://github.com/lingodotdev/lingo.dev/commit/cac54296d512d436dc3861441d5d1a3f1076792b) Thanks [@mathio](https://github.com/mathio)! - progressive push as chunks are processed
+
+- Updated dependencies [[`84fd214`](https://github.com/lingodotdev/lingo.dev/commit/84fd214a21766e7683c5d645fcb8c4c0162eb0b6)]:
+  - @lingo.dev/_compiler@0.5.0
+  - @lingo.dev/_spec@0.38.0
+  - @lingo.dev/_sdk@0.9.4
+
+## 0.100.1
+
+### Patch Changes
+
+- [#960](https://github.com/lingodotdev/lingo.dev/pull/960) [`ce0e5cd`](https://github.com/lingodotdev/lingo.dev/commit/ce0e5cd6d1ec17f5c593d394ceb63a28666df924) Thanks [@mathio](https://github.com/mathio)! - fix compiler dictionary
+
+## 0.100.0
+
+### Minor Changes
+
+- [#956](https://github.com/lingodotdev/lingo.dev/pull/956) [`ce8c75c`](https://github.com/lingodotdev/lingo.dev/commit/ce8c75c7fc1a2124d3e18444bc356c4dfce26434) Thanks [@VAIBHAVSING](https://github.com/VAIBHAVSING)! - feat: add EJS (Embedded JavaScript) templating engine support
+
+  - Added EJS loader to support parsing and translating EJS template files
+  - EJS loader extracts translatable text while preserving EJS tags and expressions
+  - Updated spec package to include "ejs" in supported bucket types
+  - Added comprehensive test suite covering various EJS scenarios including conditionals, loops, includes, and mixed content
+  - Automatically installed EJS dependency (@types/ejs) for TypeScript support
+
+### Patch Changes
+
+- Updated dependencies [[`ce8c75c`](https://github.com/lingodotdev/lingo.dev/commit/ce8c75c7fc1a2124d3e18444bc356c4dfce26434)]:
+  - @lingo.dev/_spec@0.37.0
+  - @lingo.dev/_sdk@0.9.3
+  - @lingo.dev/_compiler@0.4.1
+
+## 0.99.8
+
+### Patch Changes
+
+- Updated dependencies [[`1bba8ee`](https://github.com/lingodotdev/lingo.dev/commit/1bba8eed6272ae166ceb9b92963404bfe90a4aaa)]:
+  - @lingo.dev/_compiler@0.4.0
+
+## 0.99.7
+
+### Patch Changes
+
+- [#947](https://github.com/lingodotdev/lingo.dev/pull/947) [`d80285a`](https://github.com/lingodotdev/lingo.dev/commit/d80285a9b12bd85425564cb00e558812fd0aee40) Thanks [@mathio](https://github.com/mathio)! - remove local variable cache
+
+- Updated dependencies [[`d80285a`](https://github.com/lingodotdev/lingo.dev/commit/d80285a9b12bd85425564cb00e558812fd0aee40)]:
+  - @lingo.dev/_compiler@0.3.5
+
+## 0.99.6
+
+### Patch Changes
+
+- [`81eff21`](https://github.com/lingodotdev/lingo.dev/commit/81eff2104a4401b1c1b6cdf4dcc7ca75b7411ba4) Thanks [@mathio](https://github.com/mathio)! - fix
+
+## 0.99.5
+
+### Patch Changes
+
+- [#948](https://github.com/lingodotdev/lingo.dev/pull/948) [`b39b04a`](https://github.com/lingodotdev/lingo.dev/commit/b39b04ad83d3c8001008c3cefe309d8e762b2adc) Thanks [@mathio](https://github.com/mathio)! - match --keys via minimatch in run
+
+- [#937](https://github.com/lingodotdev/lingo.dev/pull/937) [`4e5983d`](https://github.com/lingodotdev/lingo.dev/commit/4e5983d7e59ebf9eb529c4b7c1c87689432ac873) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Update documentation URLs from docs.lingo.dev to lingo.dev/cli and lingo.dev/compiler
+
+- Updated dependencies [[`4e5983d`](https://github.com/lingodotdev/lingo.dev/commit/4e5983d7e59ebf9eb529c4b7c1c87689432ac873)]:
+  - @lingo.dev/_compiler@0.3.4
+  - @lingo.dev/_sdk@0.9.2
+
+## 0.99.4
+
+### Patch Changes
+
+- [#933](https://github.com/lingodotdev/lingo.dev/pull/933) [`1a3cbc1`](https://github.com/lingodotdev/lingo.dev/commit/1a3cbc1751c64e5617e91812506b3c061475f16a) Thanks [@caffeinated10xprogrammer](https://github.com/caffeinated10xprogrammer)! - fix a bug in cli status command when delimiter is used
+
+## 0.99.3
+
+### Patch Changes
+
+- Updated dependencies [[`76cbd9b`](https://github.com/lingodotdev/lingo.dev/commit/76cbd9b2f2e1217421ad1f671bed5b3d64b43333)]:
+  - @lingo.dev/_compiler@0.3.3
+
+## 0.99.2
+
+### Patch Changes
+
+- Updated dependencies [[`01f253d`](https://github.com/lingodotdev/lingo.dev/commit/01f253dd9759b518f400dff03ab51b460b9b8997)]:
+  - @lingo.dev/_compiler@0.3.2
+
+## 0.99.1
+
+### Patch Changes
+
+- Updated dependencies [[`8e97256`](https://github.com/lingodotdev/lingo.dev/commit/8e97256ca4e78dd09a967539ca9dec359bd558ef)]:
+  - @lingo.dev/_compiler@0.3.1
+
+## 0.99.0
+
+### Minor Changes
+
+- [#913](https://github.com/lingodotdev/lingo.dev/pull/913) [`1b9b113`](https://github.com/lingodotdev/lingo.dev/commit/1b9b11301978e8caa2555832d027ff93216aa6e1) Thanks [@The-Best-Codes](https://github.com/The-Best-Codes)! - Add support for Ollama as a CLI and Compiler provider.
+
+### Patch Changes
+
+- [#922](https://github.com/lingodotdev/lingo.dev/pull/922) [`0329a9c`](https://github.com/lingodotdev/lingo.dev/commit/0329a9cdb5e5a63fcecab4efcd7cce22f155a0e9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add openrouter ais support for compiler
+
+- Updated dependencies [[`215af19`](https://github.com/lingodotdev/lingo.dev/commit/215af1944667cce66e9c5966f4fb627186687b74), [`1b9b113`](https://github.com/lingodotdev/lingo.dev/commit/1b9b11301978e8caa2555832d027ff93216aa6e1), [`95c23cc`](https://github.com/lingodotdev/lingo.dev/commit/95c23ccbafd335939832dbdd0f995ebcb23082fd), [`0329a9c`](https://github.com/lingodotdev/lingo.dev/commit/0329a9cdb5e5a63fcecab4efcd7cce22f155a0e9)]:
+  - @lingo.dev/_compiler@0.3.0
+  - @lingo.dev/_spec@0.36.0
+  - @lingo.dev/_react@0.4.0
+  - @lingo.dev/_sdk@0.9.1
+
+## 0.98.0
+
+### Minor Changes
+
+- [#915](https://github.com/lingodotdev/lingo.dev/pull/915) [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - feat: enhance 5xx error handling with Cloudflare status integration
+
+- [#915](https://github.com/lingodotdev/lingo.dev/pull/915) [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - feat: enhance 5xx error handling with Cloudflare status integration
+
+### Patch Changes
+
+- [#919](https://github.com/lingodotdev/lingo.dev/pull/919) [`3b6574f`](https://github.com/lingodotdev/lingo.dev/commit/3b6574f0499f3f4d3c48f66ba2b828d2c1c0ceb0) Thanks [@mathio](https://github.com/mathio)! - update package import names
+
+- Updated dependencies [[`3b6574f`](https://github.com/lingodotdev/lingo.dev/commit/3b6574f0499f3f4d3c48f66ba2b828d2c1c0ceb0), [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed), [`6b4b9e6`](https://github.com/lingodotdev/lingo.dev/commit/6b4b9e6cc9a0cb5da8a4df9e9ebda474bf2a18ed)]:
+  - @lingo.dev/_compiler@0.2.4
+  - @lingo.dev/_sdk@0.9.0
+
+## 0.97.5
+
+### Patch Changes
+
+- Updated dependencies [[`d7e74c6`](https://github.com/lingodotdev/lingo.dev/commit/d7e74c6cc724da8ae759ba8d8fdb1a64867d505c)]:
+  - @lingo.dev/_compiler@0.2.3
+
+## 0.97.4
+
+### Patch Changes
+
+- [`2dd8170`](https://github.com/lingodotdev/lingo.dev/commit/2dd8170ff0101268f2253c9248409d184da5f75c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - relative paths + new locales
+
+## 0.97.3
+
+### Patch Changes
+
+- Updated dependencies [[`1a235a1`](https://github.com/lingodotdev/lingo.dev/commit/1a235a17455fb2631f7426283aa8431209999758)]:
+  - @lingo.dev/_compiler@0.2.2
+
+## 0.97.2
+
+### Patch Changes
+
+- [#903](https://github.com/lingodotdev/lingo.dev/pull/903) [`cc232eb`](https://github.com/lingodotdev/lingo.dev/commit/cc232eb72d0e54b3571bbb70e88cdad24ba6372a) Thanks [@mathio](https://github.com/mathio)! - vtt parsing
+
+## 0.97.1
+
+### Patch Changes
+
+- [#900](https://github.com/lingodotdev/lingo.dev/pull/900) [`fead8e0`](https://github.com/lingodotdev/lingo.dev/commit/fead8e08dc2b2869a093cb25a04f6e0aa78cf6b7) Thanks [@mathio](https://github.com/mathio)! - load API key from env var and env files
+
+- Updated dependencies [[`fead8e0`](https://github.com/lingodotdev/lingo.dev/commit/fead8e08dc2b2869a093cb25a04f6e0aa78cf6b7)]:
+  - @lingo.dev/_compiler@0.2.1
+
+## 0.97.0
+
+### Minor Changes
+
+- [#897](https://github.com/lingodotdev/lingo.dev/pull/897) [`a5da697`](https://github.com/lingodotdev/lingo.dev/commit/a5da697f7efd46de31d17b202d06eb5f655ed9b9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add support for other providers in the compiler and implement Google AI as a provider.
+
+### Patch Changes
+
+- [#899](https://github.com/lingodotdev/lingo.dev/pull/899) [`10a0139`](https://github.com/lingodotdev/lingo.dev/commit/10a0139edc9ffbc1c52ac2226f6b0f345cc19878) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for --key to `lingo.dev run`
+
+- Updated dependencies [[`a5da697`](https://github.com/lingodotdev/lingo.dev/commit/a5da697f7efd46de31d17b202d06eb5f655ed9b9)]:
+  - @lingo.dev/_compiler@0.2.0
+  - @lingo.dev/_react@0.3.0
+  - @lingo.dev/_spec@0.35.0
+  - @lingo.dev/_sdk@0.8.1
+
+## 0.96.0
+
+### Minor Changes
+
+- [#895](https://github.com/lingodotdev/lingo.dev/pull/895) [`3bd4045`](https://github.com/lingodotdev/lingo.dev/commit/3bd40450cbb5c8aabce61d7f1f3ab9c7293323d9) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - Add PostHog tracking to run command
+
+## 0.95.0
+
+### Minor Changes
+
+- [#874](https://github.com/lingodotdev/lingo.dev/pull/874) [`f140f82`](https://github.com/lingodotdev/lingo.dev/commit/f140f820d00b15f99214a7eece1a9c7f0d098e90) Thanks [@NamesMT](https://github.com/NamesMT)! - Reduce duplicated parsing and more dynamic key column naming support
+
+## 0.94.6
+
+### Patch Changes
+
+- [#890](https://github.com/lingodotdev/lingo.dev/pull/890) [`145fb74`](https://github.com/lingodotdev/lingo.dev/commit/145fb74c09b42c8810f351be5a641b1366881ae1) Thanks [@mathio](https://github.com/mathio)! - do not parse LingoProvider component
+
+- [#889](https://github.com/lingodotdev/lingo.dev/pull/889) [`0c45acc`](https://github.com/lingodotdev/lingo.dev/commit/0c45accfc45e63f597758c47033bc58d2f6059b5) Thanks [@mathio](https://github.com/mathio)! - update Groq API error handling
+
+- Updated dependencies [[`145fb74`](https://github.com/lingodotdev/lingo.dev/commit/145fb74c09b42c8810f351be5a641b1366881ae1), [`0c45acc`](https://github.com/lingodotdev/lingo.dev/commit/0c45accfc45e63f597758c47033bc58d2f6059b5)]:
+  - @lingo.dev/_compiler@0.1.13
+
+## 0.94.5
+
+### Patch Changes
+
+- [#887](https://github.com/lingodotdev/lingo.dev/pull/887) [`511a2ec`](https://github.com/lingodotdev/lingo.dev/commit/511a2ecd68a9c5e2800035d5c6a6b5b31b2dc80f) Thanks [@mathio](https://github.com/mathio)! - handle when lingo dir is deleted
+
+- Updated dependencies [[`511a2ec`](https://github.com/lingodotdev/lingo.dev/commit/511a2ecd68a9c5e2800035d5c6a6b5b31b2dc80f)]:
+  - @lingo.dev/_compiler@0.1.12
+  - @lingo.dev/_react@0.2.4
+
+## 0.94.4
+
+### Patch Changes
+
+- [#883](https://github.com/lingodotdev/lingo.dev/pull/883) [`7191444`](https://github.com/lingodotdev/lingo.dev/commit/7191444f67864ea5b5a91a9be759b2445bf186d3) Thanks [@mathio](https://github.com/mathio)! - client-side loading state
+
+- Updated dependencies [[`7191444`](https://github.com/lingodotdev/lingo.dev/commit/7191444f67864ea5b5a91a9be759b2445bf186d3)]:
+  - @lingo.dev/_react@0.2.3
+  - @lingo.dev/_compiler@0.1.11
+
+## 0.94.3
+
+### Patch Changes
+
+- Updated dependencies [[`152e96a`](https://github.com/lingodotdev/lingo.dev/commit/152e96a46b98dd25d558ff0e7e20b18b954d375a)]:
+  - @lingo.dev/_compiler@0.1.10
+
+## 0.94.2
+
+### Patch Changes
+
+- [#872](https://github.com/lingodotdev/lingo.dev/pull/872) [`af011b1`](https://github.com/lingodotdev/lingo.dev/commit/af011b18fe96f15287609278f4d4d2b343b6c2cc) Thanks [@NamesMT](https://github.com/NamesMT)! - Allows user to type even less and benefit from lingo.dev <3
+
+## 0.94.1
+
+### Patch Changes
+
+- Updated dependencies [[`a7bf553`](https://github.com/lingodotdev/lingo.dev/commit/a7bf5538b5b72e41f90371f6211378aac7d5f800), [`562e667`](https://github.com/lingodotdev/lingo.dev/commit/562e667471abb51d7dd193217eefb8e8b3f8a686)]:
+  - @lingo.dev/_react@0.2.2
+
+## 0.94.0
+
+### Minor Changes
+
+- [#864](https://github.com/lingodotdev/lingo.dev/pull/864) [`3750c9c`](https://github.com/lingodotdev/lingo.dev/commit/3750c9ca25a78280b04e4a2b2e6641dd21f9f3b0) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): add `login` and `logout` commands to replace `auth --login` and `auth --logout`
+
+### Patch Changes
+
+- Updated dependencies [[`77461a7`](https://github.com/lingodotdev/lingo.dev/commit/77461a7872eec3ea188b3ca6c6f7ce1fd13fdfbb)]:
+  - @lingo.dev/_compiler@0.1.9
+
+## 0.93.13
+
+### Patch Changes
+
+- Updated dependencies [[`1bccb7e`](https://github.com/lingodotdev/lingo.dev/commit/1bccb7ed51ac1f13ea79e618bbee551d5529efdc)]:
+  - @lingo.dev/_compiler@0.1.8
+
+## 0.93.12
+
+### Patch Changes
+
+- Updated dependencies [[`5b68641`](https://github.com/lingodotdev/lingo.dev/commit/5b686414f363f8ee4b79fd4e804a434db5cfcb36)]:
+  - @lingo.dev/_compiler@0.1.7
+
+## 0.93.11
+
+### Patch Changes
+
+- Updated dependencies [[`1f9db11`](https://github.com/lingodotdev/lingo.dev/commit/1f9db11a53d8c75ce0e83517b73d43544d0f0fd2)]:
+  - @lingo.dev/_react@0.2.1
+
+## 0.93.10
+
+### Patch Changes
+
+- Updated dependencies [[`7a5898b`](https://github.com/lingodotdev/lingo.dev/commit/7a5898b12dcd0015a5e57236bf65172cedb8a6ee)]:
+  - @lingo.dev/_compiler@0.1.6
+
+## 0.93.9
+
+### Patch Changes
+
+- Updated dependencies [[`7013b53`](https://github.com/lingodotdev/lingo.dev/commit/7013b5300d6c2c26f39da62b5ad2c7cf11158c74)]:
+  - @lingo.dev/_compiler@0.1.5
+
+## 0.93.8
+
+### Patch Changes
+
+- [#853](https://github.com/lingodotdev/lingo.dev/pull/853) [`cb7d5e2`](https://github.com/lingodotdev/lingo.dev/commit/cb7d5e213282c00af658159472183a763f84ca3d) Thanks [@vrcprl](https://github.com/vrcprl)! - Fix groq api key retrieval from .env
+
+- Updated dependencies [[`cb7d5e2`](https://github.com/lingodotdev/lingo.dev/commit/cb7d5e213282c00af658159472183a763f84ca3d)]:
+  - @lingo.dev/_compiler@0.1.4
+
+## 0.93.7
+
+### Patch Changes
+
+- [`5d27455`](https://github.com/lingodotdev/lingo.dev/commit/5d2745545044cbaddb099f7920c96fe198879ba3) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add boolean parsing
+
+## 0.93.6
+
+### Patch Changes
+
+- [#843](https://github.com/lingodotdev/lingo.dev/pull/843) [`b67a331`](https://github.com/lingodotdev/lingo.dev/commit/b67a33141253fa755b5531e52cd690bf5824d4b6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - explicit source / targets in run cmd, parallel mode for ci/cd
+
+## 0.93.5
+
+### Patch Changes
+
+- Updated dependencies [[`e75e615`](https://github.com/lingodotdev/lingo.dev/commit/e75e615ab17e279deb5a505dbda682fdfc7ead62)]:
+  - @lingo.dev/_react@0.2.0
+
 ## 0.93.4
 
 ### Patch Changes
