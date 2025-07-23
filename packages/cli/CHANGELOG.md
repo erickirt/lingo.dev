@@ -1,5 +1,15 @@
 # lingo.dev
 
+## 0.107.7
+
+### Patch Changes
+
+- [#1028](https://github.com/lingodotdev/lingo.dev/pull/1028) [`b9e2551`](https://github.com/lingodotdev/lingo.dev/commit/b9e2551f349e33542212f941b3407e8517b5fb27) Thanks [@pushkar1713](https://github.com/pushkar1713)! - Make run cmd in CLI print a list of collected errors
+
+- Updated dependencies [[`85dfc10`](https://github.com/lingodotdev/lingo.dev/commit/85dfc10961b116e31b2bb478f42013756ca49974)]:
+  - @lingo.dev/_sdk@0.11.0
+  - @lingo.dev/_compiler@0.7.2
+
 ## 0.107.6
 
 ### Patch Changes
