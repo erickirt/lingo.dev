@@ -1,5 +1,11 @@
 # @lingo.dev/\_compiler
 
+## 0.7.5
+
+### Patch Changes
+
+- [#1116](https://github.com/lingodotdev/lingo.dev/pull/1116) [`bc419ae`](https://github.com/lingodotdev/lingo.dev/commit/bc419aeeb4211d80d3c0ddd65deeab62ad68fea8) Thanks [@devin-ai-integration](https://github.com/apps/devin-ai-integration)! - fix: move vitest from dependencies to devDependencies
+
 ## 0.7.4
 
 ### Patch Changes
